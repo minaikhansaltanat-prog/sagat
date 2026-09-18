@@ -1,0 +1,17 @@
+node_modules/
+"temporary screenshots/"
+temporary screenshots/
+npm-debug.log*
+.claude/
+
+# ui-ux-pro-max skill files that live in this folder (not part of the site)
+core.py
+core.cpython-*.pyc
+design_system.py
+design_system.cpython-*.pyc
+search.py
+search.cpython-*.pyc
+plugin.json
+SKILL.md
+SKILL s.md
+README.md
