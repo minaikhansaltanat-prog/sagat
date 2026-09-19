@@ -368,6 +368,19 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
 .product-card__price{ font-size:13px; font-weight:400; }
 .product-card__stock{ font-size:11px; color:var(--text-soft); margin-top:4px; }
 
+.product-actions{ display:flex; gap:8px; margin-top:12px; }
+.product-btn{
+  flex:1; height:34px; display:flex; align-items:center; justify-content:center;
+  font-size:10px; letter-spacing:.08em; text-transform:uppercase; font-weight:500;
+  text-align:center; transition:background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
+}
+.product-btn--buy{ background:var(--ink); color:#fff; border:1px solid var(--ink); }
+.product-btn--buy:hover{ background:var(--ink-2); }
+.product-btn--details{ background:transparent; color:var(--ink); border:1px solid var(--line-input); }
+.product-btn--details:hover{ background:var(--ink); color:#fff; border-color:var(--ink); }
+.product-grid.is-feed .product-actions{ margin-top:16px; }
+.product-grid.is-feed .product-btn{ height:40px; font-size:11px; }
+
 /* Feed view: single column, first photo large — like an editorial feed */
 .product-grid.is-feed{ display:block; max-width:560px; margin:0 auto; }
 .product-grid.is-feed .product-card{ margin-bottom:48px; }
@@ -712,7 +725,7 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
         </div>
       </a>
       <a class="cat-card" id="cat-men" href="#new-arrivals">
-        <div class="cat-card__media"><img src="https://images.unsplash.com/photo-1634140704051-58a787556cd1?auto=format&fit=crop&w=900&h=1125&q=80" data-kk-alt="Ер адамдарға арналған сағаттар" data-ru-alt="Часы для мужчин" alt="Ер адамдарға арналған сағаттар" loading="lazy"></div>
+        <div class="cat-card__media"><img src="https://images.unsplash.com/photo-1582043568773-a7a2b57239f5?auto=format&fit=crop&w=900&h=1125&q=80" data-kk-alt="Ер адамдарға арналған сағаттар" data-ru-alt="Часы для мужчин" alt="Ер адамдарға арналған сағаттар" loading="lazy"></div>
         <div class="cat-card__body">
           <span class="cat-card__title i18n" data-kk="Ер адамдарға" data-ru="Мужчинам">Ер адамдарға</span>
           <span class="cat-card__arrow"><span class="i18n" data-kk="Қарау" data-ru="Смотреть">Қарау</span><svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg></span>
@@ -825,6 +838,18 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
           <p class="product-card__name"><a href="#">Steppe Chronograph<span class="product-card__variant">, Ref. AW-204</span></a></p>
           <p class="product-card__price">890 000 ₸</p>
           <p class="product-card__stock i18n" data-kk="Қоймада" data-ru="В наличии">Қоймада</p>
+          <div class="product-actions">
+            <a href="#" class="product-btn product-btn--buy js-wa-msg" target="_blank" rel="noopener"
+               data-kk-msg="Сәлеметсіз бе! Маған ALTYN WATCH Steppe Chronograph сағаты қызықты. Осы сағатты сатып алғым келеді."
+               data-ru-msg="Здравствуйте! Меня заинтересовали часы ALTYN WATCH Steppe Chronograph. Хочу купить эти часы.">
+              <span class="i18n" data-kk="Сатып алу" data-ru="Купить">Сатып алу</span>
+            </a>
+            <a href="#" class="product-btn product-btn--details js-wa-msg" target="_blank" rel="noopener"
+               data-kk-msg="Сәлеметсіз бе! Маған ALTYN WATCH Steppe Chronograph сағаты туралы толық ақпарат беріңізші."
+               data-ru-msg="Здравствуйте! Расскажите, пожалуйста, подробнее о часах ALTYN WATCH Steppe Chronograph.">
+              <span class="i18n" data-kk="Толығырақ" data-ru="Подробнее">Толығырақ</span>
+            </a>
+          </div>
         </article>
 
         <article class="product-card">
@@ -849,12 +874,24 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
           <p class="product-card__name"><a href="#">PRX Powermatic 80<span class="product-card__variant">, Ref. T137</span></a></p>
           <p class="product-card__price">620 000 ₸</p>
           <p class="product-card__stock i18n" data-kk="Қоймада" data-ru="В наличии">Қоймада</p>
+          <div class="product-actions">
+            <a href="#" class="product-btn product-btn--buy js-wa-msg" target="_blank" rel="noopener"
+               data-kk-msg="Сәлеметсіз бе! Маған TISSOT PRX Powermatic 80 сағаты қызықты. Осы сағатты сатып алғым келеді."
+               data-ru-msg="Здравствуйте! Меня заинтересовали часы TISSOT PRX Powermatic 80. Хочу купить эти часы.">
+              <span class="i18n" data-kk="Сатып алу" data-ru="Купить">Сатып алу</span>
+            </a>
+            <a href="#" class="product-btn product-btn--details js-wa-msg" target="_blank" rel="noopener"
+               data-kk-msg="Сәлеметсіз бе! Маған TISSOT PRX Powermatic 80 сағаты туралы толық ақпарат беріңізші."
+               data-ru-msg="Здравствуйте! Расскажите, пожалуйста, подробнее о часах TISSOT PRX Powermatic 80.">
+              <span class="i18n" data-kk="Толығырақ" data-ru="Подробнее">Толығырақ</span>
+            </a>
+          </div>
         </article>
 
         <article class="product-card">
           <div class="product-card__figure">
             <a href="#" class="product-card__media">
-              <img class="product-img is-active" data-i="0" src="https://images.unsplash.com/photo-1634140704051-58a787556cd1?auto=format&fit=crop&w=800&h=1000&q=80" data-kk-alt="LONGINES Master Collection, алдыңғы көрінісі" data-ru-alt="LONGINES Master Collection, вид спереди" alt="LONGINES Master Collection" loading="lazy">
+              <img class="product-img is-active" data-i="0" src="https://images.unsplash.com/photo-1582043568223-338d62fc01fe?auto=format&fit=crop&w=800&h=1000&q=80" data-kk-alt="LONGINES Master Collection, алдыңғы көрінісі" data-ru-alt="LONGINES Master Collection, вид спереди" alt="LONGINES Master Collection" loading="lazy">
               <img class="product-img" data-i="1" src="https://images.unsplash.com/photo-1571291341483-2fdc082c59ba?auto=format&fit=crop&w=800&h=1000&q=80" alt="" loading="lazy">
               <img class="product-img" data-i="2" src="https://images.unsplash.com/photo-1603636489686-2ab6dc08fa8d?auto=format&fit=crop&w=800&h=1000&q=80" alt="" loading="lazy">
               <img class="product-img" data-i="3" src="https://images.unsplash.com/photo-1646724810360-abfa1bb76d6d?auto=format&fit=crop&w=800&h=1000&q=80" alt="" loading="lazy">
@@ -873,6 +910,18 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
           <p class="product-card__name"><a href="#">Master Collection<span class="product-card__variant">, Ref. L2.628</span></a></p>
           <p class="product-card__price">1 450 000 ₸</p>
           <p class="product-card__stock i18n" data-kk="Тапсырыспен" data-ru="Под заказ">Тапсырыспен</p>
+          <div class="product-actions">
+            <a href="#" class="product-btn product-btn--buy js-wa-msg" target="_blank" rel="noopener"
+               data-kk-msg="Сәлеметсіз бе! Маған LONGINES Master Collection сағаты қызықты. Осы сағатты сатып алғым келеді."
+               data-ru-msg="Здравствуйте! Меня заинтересовали часы LONGINES Master Collection. Хочу купить эти часы.">
+              <span class="i18n" data-kk="Сатып алу" data-ru="Купить">Сатып алу</span>
+            </a>
+            <a href="#" class="product-btn product-btn--details js-wa-msg" target="_blank" rel="noopener"
+               data-kk-msg="Сәлеметсіз бе! Маған LONGINES Master Collection сағаты туралы толық ақпарат беріңізші."
+               data-ru-msg="Здравствуйте! Расскажите, пожалуйста, подробнее о часах LONGINES Master Collection.">
+              <span class="i18n" data-kk="Толығырақ" data-ru="Подробнее">Толығырақ</span>
+            </a>
+          </div>
         </article>
 
         <article class="product-card">
@@ -897,6 +946,18 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
           <p class="product-card__name"><a href="#">Seamaster Aqua Terra<span class="product-card__variant">, Ref. 220.10</span></a></p>
           <p class="product-card__price">3 200 000 ₸</p>
           <p class="product-card__stock i18n" data-kk="Қоймада" data-ru="В наличии">Қоймада</p>
+          <div class="product-actions">
+            <a href="#" class="product-btn product-btn--buy js-wa-msg" target="_blank" rel="noopener"
+               data-kk-msg="Сәлеметсіз бе! Маған OMEGA Seamaster Aqua Terra сағаты қызықты. Осы сағатты сатып алғым келеді."
+               data-ru-msg="Здравствуйте! Меня заинтересовали часы OMEGA Seamaster Aqua Terra. Хочу купить эти часы.">
+              <span class="i18n" data-kk="Сатып алу" data-ru="Купить">Сатып алу</span>
+            </a>
+            <a href="#" class="product-btn product-btn--details js-wa-msg" target="_blank" rel="noopener"
+               data-kk-msg="Сәлеметсіз бе! Маған OMEGA Seamaster Aqua Terra сағаты туралы толық ақпарат беріңізші."
+               data-ru-msg="Здравствуйте! Расскажите, пожалуйста, подробнее о часах OMEGA Seamaster Aqua Terra.">
+              <span class="i18n" data-kk="Толығырақ" data-ru="Подробнее">Толығырақ</span>
+            </a>
+          </div>
         </article>
 
       </div>
@@ -951,7 +1012,7 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
         </a>
 
         <a class="box-card" href="#">
-          <div class="box-card__media"><img src="https://images.unsplash.com/photo-1632486104183-38deea704a32?auto=format&fit=crop&w=700&h=700&q=80" data-kk-alt="Премиум жинақ" data-ru-alt="Премиум набор" alt="PREMIUM SET" loading="lazy"></div>
+          <div class="box-card__media"><img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=700&h=700&q=80" data-kk-alt="Премиум жинақ" data-ru-alt="Премиум набор" alt="PREMIUM SET" loading="lazy"></div>
           <p class="box-card__tag">PREMIUM SET</p>
           <p class="box-card__desc i18n" data-kk="Жоғары сегменттегі жинақ" data-ru="Набор премиум-сегмента">Жоғары сегменттегі жинақ</p>
           <p class="box-card__from"><span class="i18n" data-kk="бастап" data-ru="от">бастап</span> 1 100 000 ₸</p>
@@ -1146,6 +1207,10 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
     document.querySelectorAll("[data-kk-alt]").forEach(function(el){
       var v = el.dataset[lang + "Alt"];
       if (v !== undefined) el.alt = v;
+    });
+    document.querySelectorAll("[data-kk-msg]").forEach(function(el){
+      var msg = el.dataset[lang + "Msg"];
+      if (msg !== undefined) el.href = "https://wa.me/" + WA_PHONE + "?text=" + encodeURIComponent(msg);
     });
 
     document.querySelectorAll(".lang-btn").forEach(function(b){
