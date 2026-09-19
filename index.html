@@ -10,7 +10,8 @@
 <meta property="og:description" content="Түпнұсқалық. Талғам. Сенімді сервис.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://images.unsplash.com/photo-1583198432859-635beb4e8600?auto=format&fit=crop&w=1200&h=630&q=80">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%23000'/%3E%3Ccircle cx='50' cy='50' r='34' fill='none' stroke='%23fff' stroke-width='3'/%3E%3Cline x1='50' y1='50' x2='50' y2='28' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3Cline x1='50' y1='50' x2='66' y2='58' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="icon" type="image/png" href="favicon-512.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -174,12 +175,19 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
 .hamburger-btn svg{ width:22px; height:22px; stroke:var(--ink); stroke-width:1.4; fill:none; }
 
 .brand-logo{
+  display:flex; align-items:center; justify-content:center; gap:6px;
   font-family:var(--font-serif); font-size:clamp(13px,4.6vw,20px); letter-spacing:.04em; font-weight:600;
-  white-space:nowrap; flex:1 1 auto; text-align:center; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; flex:1 1 auto; overflow:hidden;
   padding:0 4px;
 }
-@media (min-width:480px){ .brand-logo{ letter-spacing:.1em; } }
-@media (min-width:1024px){ .brand-logo{ font-size:26px; letter-spacing:.16em; flex:0 0 auto; overflow:visible; } }
+.brand-logo__mark{ height:22px; width:auto; flex:0 0 auto; }
+.brand-logo__text{ overflow:hidden; text-overflow:ellipsis; }
+@media (min-width:480px){ .brand-logo{ letter-spacing:.1em; } .brand-logo__mark{ height:26px; } }
+@media (min-width:1024px){
+  .brand-logo{ font-size:26px; letter-spacing:.16em; flex:0 0 auto; overflow:visible; gap:10px; }
+  .brand-logo__mark{ height:34px; }
+  .brand-logo__text{ overflow:visible; }
+}
 
 .primary-nav{ border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
 .primary-nav__inner{ display:flex; justify-content:center; gap:36px; height:52px; align-items:center; flex-wrap:wrap; }
@@ -472,12 +480,22 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
 .footer-col__title{ font-size:11px; letter-spacing:.1em; text-transform:uppercase; font-weight:600; margin-bottom:18px; color:#fff; }
 .footer-col a{ display:block; font-size:13px; color:var(--footer-muted); padding:7px 0; transition:color .2s var(--ease); }
 .footer-col a:hover{ color:#fff; }
-.footer-brand__logo{ font-family:var(--font-serif); font-size:22px; letter-spacing:.14em; margin-bottom:14px; }
+.footer-brand__logo{
+  display:flex; align-items:center; gap:10px;
+  font-family:var(--font-serif); font-size:20px; letter-spacing:.12em; margin-bottom:14px;
+}
+.footer-brand__mark{ height:30px; width:auto; flex:0 0 auto; }
 .footer-brand__desc{ font-size:13px; color:var(--footer-muted); line-height:1.7; max-width:32ch; margin-bottom:18px; }
 .footer-social{ display:flex; gap:14px; }
 .footer-social a{ width:38px; height:38px; border:1px solid rgba(255,255,255,.25); display:flex; align-items:center; justify-content:center; padding:0; }
 .footer-social a:hover{ border-color:#fff; }
 .footer-social svg{ width:16px; height:16px; stroke:#fff; fill:none; stroke-width:1.3; }
+
+.footer-address{ display:flex; gap:12px; margin-top:22px; padding-top:22px; border-top:1px solid rgba(255,255,255,.14); max-width:32ch; }
+.footer-address svg{ flex:0 0 auto; width:18px; height:18px; stroke:var(--footer-muted); fill:none; stroke-width:1.3; margin-top:2px; }
+.footer-address p{ font-size:12.5px; color:var(--footer-muted); line-height:1.6; margin-bottom:6px; }
+.footer-address__link{ font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#fff; border-bottom:1px solid rgba(255,255,255,.4); padding-bottom:1px; transition:opacity .2s var(--ease); }
+.footer-address__link:hover{ opacity:.7; }
 .footer-legal{
   display:flex; flex-direction:column; gap:14px; padding:24px 0 32px; font-size:11.5px; color:var(--footer-muted);
 }
@@ -555,7 +573,10 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
         </button>
       </div>
 
-      <a href="#top" class="brand-logo">ROYAL WATCH</a>
+      <a href="#top" class="brand-logo">
+        <img src="logo-header.png" class="brand-logo__mark" alt="" width="471" height="600" loading="eager">
+        <span class="brand-logo__text">ROYAL WATCH</span>
+      </a>
 
       <div class="main-header__right">
         <button class="icon-btn" id="searchOpenBtn" data-kk-aria="Іздеу" data-ru-aria="Поиск" aria-label="Іздеу">
@@ -1115,7 +1136,10 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
   <div class="container">
     <div class="footer-grid">
       <div>
-        <p class="footer-brand__logo">ROYAL WATCH</p>
+        <p class="footer-brand__logo">
+          <img src="logo-header.png" class="footer-brand__mark" alt="" width="471" height="600" loading="lazy">
+          <span>ROYAL WATCH</span>
+        </p>
         <p class="footer-brand__desc i18n" data-kk="Премиум сағат бутигі. Түпнұсқалық, талғам және сенімді сервис." data-ru="Премиальный часовой бутик. Подлинность, вкус и надёжный сервис.">Премиум сағат бутигі. Түпнұсқалық, талғам және сенімді сервис.</p>
         <div class="footer-social">
           <a href="https://instagram.com/royal.watch.kz" target="_blank" rel="noopener" aria-label="Instagram">
@@ -1127,6 +1151,13 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
           <a href="https://wa.me/77081664466" target="_blank" rel="noopener" aria-label="WhatsApp">
             <svg viewBox="0 0 24 24"><path d="M8 15s1.5 2 4 2 4-2 4-2"/><circle cx="12" cy="12" r="9"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
           </a>
+        </div>
+        <div class="footer-address">
+          <svg viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
+          <div>
+            <p class="i18n" data-kk="Жолдасбекова көшесі, 9а, «Евразия» СТК, Алматы" data-ru="Ул. Жолдасбекова, 9а, ТРК «Евразия», Алматы">Жолдасбекова көшесі, 9а, «Евразия» СТК, Алматы</p>
+            <a href="https://2gis.kz/almaty/geo/9429940000795229/76.955668,43.235031" target="_blank" rel="noopener" class="footer-address__link i18n" data-kk="2GIS-те қарау" data-ru="Смотреть на 2ГИС">2GIS-те қарау</a>
+          </div>
         </div>
       </div>
 
