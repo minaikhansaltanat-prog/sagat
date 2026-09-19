@@ -13,7 +13,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%23000'/%3E%3Ccircle cx='50' cy='50' r='34' fill='none' stroke='%23fff' stroke-width='3'/%3E%3Cline x1='50' y1='50' x2='50' y2='28' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3Cline x1='50' y1='50' x2='66' y2='58' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* =========================================================
    ROYAL WATCH — design tokens (Appendix A / B3)
@@ -315,23 +315,67 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
 @media (min-width:768px){ .product-grid{ gap:28px 24px; } }
 @media (min-width:1024px){ .product-grid{ grid-template-columns:repeat(4,1fr); } }
 .product-card{ position:relative; }
-.product-card__media{ display:block; position:relative; aspect-ratio:4/5; background:var(--product-bg); overflow:hidden; margin-bottom:14px; }
-.product-card__media img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-.product-card__media img:last-child{ opacity:0; transition:opacity .4s var(--ease); }
-@media (hover:hover){ .product-card:hover .product-card__media img:last-child{ opacity:1; } }
+
+/* Toolbar: result count + grid/feed view switcher (delicate line icons) */
+.grid-toolbar{
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  padding-bottom:14px; margin-bottom:24px; border-bottom:1px solid var(--line);
+}
+.grid-toolbar__count{ font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--text-soft); }
+.grid-toolbar__num{ color:var(--ink); font-weight:600; }
+.grid-toolbar__views{ display:flex; align-items:center; gap:2px; }
+.view-btn{
+  width:34px; height:34px; display:flex; align-items:center; justify-content:center;
+  color:var(--text-muted); transition:color .2s var(--ease); border:1px solid transparent;
+}
+.view-btn svg{ width:16px; height:16px; stroke:currentColor; stroke-width:1.1; fill:none; }
+.view-btn:hover{ color:var(--ink); }
+.view-btn.is-active{ color:var(--ink); border-color:var(--line-input); }
+
+/* Product figure: link area + wishlist + mini 4-photo gallery with delicate dots */
+.product-card__figure{ position:relative; aspect-ratio:4/5; background:var(--product-bg); overflow:hidden; margin-bottom:16px; }
+.product-card__media{ display:block; position:absolute; inset:0; }
+.product-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .45s var(--ease); }
+.product-img.is-active{ opacity:1; }
 .product-card__wish{
   position:absolute; top:10px; right:10px; width:34px; height:34px; display:flex; align-items:center; justify-content:center;
-  background:rgba(255,255,255,.9); opacity:0; transition:opacity .25s var(--ease); z-index:2;
+  background:rgba(255,255,255,.9); opacity:0; transition:opacity .25s var(--ease); z-index:3;
 }
 @media (hover:hover){ .product-card:hover .product-card__wish{ opacity:1; } }
 @media (hover:none){ .product-card__wish{ opacity:1; } }
 .product-card__wish svg{ width:16px; height:16px; stroke:var(--ink); fill:none; stroke-width:1.3; }
-.product-card__brand{ font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--text-soft); margin-bottom:4px; }
-.product-card__name{ font-size:14px; margin-bottom:6px; }
+
+.product-dots{
+  position:absolute; left:0; right:0; bottom:12px; z-index:3;
+  display:flex; align-items:center; justify-content:center; gap:6px;
+  opacity:0; transition:opacity .25s var(--ease);
+}
+@media (hover:hover){ .product-card:hover .product-dots{ opacity:1; } }
+@media (hover:none){ .product-dots{ opacity:1; } }
+.dot{
+  width:5px; height:5px; padding:5px; background-clip:content-box;
+  border-radius:50%; background:rgba(255,255,255,.55);
+  box-shadow:0 0 0 1px rgba(0,0,0,.18);
+  transition:background .2s var(--ease), transform .2s var(--ease);
+}
+.dot.is-active{ background:#fff; transform:scale(1.2); }
+
+.product-card__brand{ font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--text-soft); margin-bottom:5px; font-weight:500; }
+.product-card__name{ font-size:14.5px; font-weight:300; letter-spacing:.01em; color:var(--ink-2); margin-bottom:7px; }
+.product-card__variant{ color:var(--text-soft); font-weight:300; }
 .product-card__name a{ background-image:linear-gradient(currentColor,currentColor); background-position:0 100%; background-repeat:no-repeat; background-size:0 1px; transition:background-size .25s var(--ease); }
 .product-card:hover .product-card__name a{ background-size:100% 1px; }
-.product-card__price{ font-size:13px; font-weight:500; }
+.product-card__price{ font-size:13px; font-weight:400; }
 .product-card__stock{ font-size:11px; color:var(--text-soft); margin-top:4px; }
+
+/* Feed view: single column, first photo large — like an editorial feed */
+.product-grid.is-feed{ display:block; max-width:560px; margin:0 auto; }
+.product-grid.is-feed .product-card{ margin-bottom:48px; }
+.product-grid.is-feed .product-card:last-child{ margin-bottom:0; }
+.product-grid.is-feed .product-card__figure{ aspect-ratio:1/1; margin-bottom:20px; }
+.product-grid.is-feed .product-card__brand{ font-size:11px; }
+.product-grid.is-feed .product-card__name{ font-size:18px; }
+.product-grid.is-feed .product-card__price{ font-size:14px; }
 
 /* =========================================================
    MOBILE FEATURED PRODUCT
@@ -661,21 +705,21 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
     </div>
     <div class="cat-grid">
       <a class="cat-card" id="cat-women" href="#new-arrivals">
-        <div class="cat-card__media"><img src="https://images.unsplash.com/photo-1495856458515-0637185db551?auto=format&fit=crop&w=900&h=1125&q=80" data-kk-alt="Әйелдерге арналған сағаттар" data-ru-alt="Часы для женщин" alt="Әйелдерге арналған сағаттар" loading="lazy"></div>
+        <div class="cat-card__media"><img src="https://images.unsplash.com/photo-1708453481658-117ced2f1d12?auto=format&fit=crop&w=900&h=1125&q=80" data-kk-alt="Әйелдерге арналған сағаттар" data-ru-alt="Часы для женщин" alt="Әйелдерге арналған сағаттар" loading="lazy"></div>
         <div class="cat-card__body">
           <span class="cat-card__title i18n" data-kk="Әйелдерге" data-ru="Женщинам">Әйелдерге</span>
           <span class="cat-card__arrow"><span class="i18n" data-kk="Қарау" data-ru="Смотреть">Қарау</span><svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg></span>
         </div>
       </a>
       <a class="cat-card" id="cat-men" href="#new-arrivals">
-        <div class="cat-card__media"><img src="https://images.unsplash.com/photo-1777457900943-7fd2f7c42529?auto=format&fit=crop&w=900&h=1125&q=80" data-kk-alt="Ер адамдарға арналған сағаттар" data-ru-alt="Часы для мужчин" alt="Ер адамдарға арналған сағаттар" loading="lazy"></div>
+        <div class="cat-card__media"><img src="https://images.unsplash.com/photo-1634140704051-58a787556cd1?auto=format&fit=crop&w=900&h=1125&q=80" data-kk-alt="Ер адамдарға арналған сағаттар" data-ru-alt="Часы для мужчин" alt="Ер адамдарға арналған сағаттар" loading="lazy"></div>
         <div class="cat-card__body">
           <span class="cat-card__title i18n" data-kk="Ер адамдарға" data-ru="Мужчинам">Ер адамдарға</span>
           <span class="cat-card__arrow"><span class="i18n" data-kk="Қарау" data-ru="Смотреть">Қарау</span><svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg></span>
         </div>
       </a>
       <a class="cat-card" id="cat-kazakh" href="#kazakh-brands">
-        <div class="cat-card__media"><img src="https://images.unsplash.com/photo-1689287428096-7e1dcc705a5c?auto=format&fit=crop&w=900&h=1125&q=80" data-kk-alt="Қазақша сағат брендтері" data-ru-alt="Казахстанские часовые бренды" alt="Қазақша сағат брендтері" loading="lazy"></div>
+        <div class="cat-card__media"><img src="https://images.unsplash.com/photo-1612263731558-bbac49f8581a?auto=format&fit=crop&w=900&h=1125&q=80" data-kk-alt="Қазақша сағат брендтері" data-ru-alt="Казахстанские часовые бренды" alt="Қазақша сағат брендтері" loading="lazy"></div>
         <div class="cat-card__body">
           <span class="cat-card__title i18n" data-kk="Қазақша брендтер" data-ru="Казахстанские бренды">Қазақша брендтер</span>
           <span class="cat-card__arrow"><span class="i18n" data-kk="Қарау" data-ru="Смотреть">Қарау</span><svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg></span>
@@ -689,7 +733,7 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
         </div>
       </a>
       <a class="cat-card" id="cat-new" href="#new-arrivals">
-        <div class="cat-card__media"><img src="https://images.unsplash.com/photo-1779368098438-85191f4f906f?auto=format&fit=crop&w=900&h=1125&q=80" data-kk-alt="Жаңа коллекциялар" data-ru-alt="Новые коллекции" alt="Жаңа коллекциялар" loading="lazy"></div>
+        <div class="cat-card__media"><img src="https://images.unsplash.com/photo-1625571281352-caac5f5154fe?auto=format&fit=crop&w=900&h=1125&q=80" data-kk-alt="Жаңа коллекциялар" data-ru-alt="Новые коллекции" alt="Жаңа коллекциялар" loading="lazy"></div>
         <div class="cat-card__body">
           <span class="cat-card__title i18n" data-kk="Жаңа коллекциялар" data-ru="Новые коллекции">Жаңа коллекциялар</span>
           <span class="cat-card__arrow"><span class="i18n" data-kk="Қарау" data-ru="Смотреть">Қарау</span><svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg></span>
@@ -744,60 +788,113 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
         <h2 class="section-heading i18n" data-kk="Жаңа түсімдер" data-ru="Новые поступления">Жаңа түсімдер</h2>
         <a href="#" class="text-link i18n" data-kk="Барлығын көру" data-ru="Смотреть все">Барлығын көру</a>
       </div>
-      <div class="product-grid">
+
+      <div class="grid-toolbar">
+        <span class="grid-toolbar__count"><span class="grid-toolbar__num">4</span> <span class="i18n" data-kk="модель" data-ru="модели">модель</span></span>
+        <div class="grid-toolbar__views" role="group" data-kk-aria="Көрініс режимі" data-ru-aria="Режим отображения" aria-label="Көрініс режимі">
+          <button class="view-btn is-active" data-view="grid" data-kk-aria="Тор көрінісі" data-ru-aria="Вид сеткой" aria-label="Тор көрінісі" aria-pressed="true">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5"/><rect x="13.5" y="3" width="7.5" height="7.5"/><rect x="3" y="13.5" width="7.5" height="7.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5"/></svg>
+          </button>
+          <button class="view-btn" data-view="feed" data-kk-aria="Тізім көрінісі" data-ru-aria="Вид лентой" aria-label="Тізім көрінісі" aria-pressed="false">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="6.5"/><rect x="3" y="13.5" width="18" height="6.5"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="product-grid" id="newArrivalsGrid">
 
         <article class="product-card">
-          <a href="#" class="product-card__media">
-            <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=800&h=1000&q=80" data-kk-alt="ALTYN WATCH Steppe Chronograph, алдыңғы көрінісі" data-ru-alt="ALTYN WATCH Steppe Chronograph, вид спереди" alt="ALTYN WATCH Steppe Chronograph" loading="lazy">
-            <img src="https://images.unsplash.com/photo-1583198432859-635beb4e8600?auto=format&fit=crop&w=800&h=1000&q=80" alt="" loading="lazy">
-          </a>
-          <button class="product-card__wish" data-kk-aria="Таңдаулыға қосу" data-ru-aria="Добавить в избранное" aria-label="Таңдаулыға қосу">
-            <svg viewBox="0 0 24 24"><path d="M12 20.2s-7.8-4.9-10-9.3C.4 7.8 2.2 4.5 5.5 4c2-.3 3.8.6 4.9 2.2C11.5 4.6 13.3 3.7 15.3 4c3.3.5 5.1 3.8 3.5 6.9-2.2 4.4-10 9.3-10 9.3z"/></svg>
-          </button>
+          <div class="product-card__figure">
+            <a href="#" class="product-card__media">
+              <img class="product-img is-active" data-i="0" src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=800&h=1000&q=80" data-kk-alt="ALTYN WATCH Steppe Chronograph, алдыңғы көрінісі" data-ru-alt="ALTYN WATCH Steppe Chronograph, вид спереди" alt="ALTYN WATCH Steppe Chronograph" loading="lazy">
+              <img class="product-img" data-i="1" src="https://images.unsplash.com/photo-1583198432859-635beb4e8600?auto=format&fit=crop&w=800&h=1000&q=80" alt="" loading="lazy">
+              <img class="product-img" data-i="2" src="https://images.unsplash.com/photo-1677466892001-91d1904b71bc?auto=format&fit=crop&w=800&h=1000&q=80" alt="" loading="lazy">
+              <img class="product-img" data-i="3" src="https://images.unsplash.com/photo-1716406536069-c27068316336?auto=format&fit=crop&w=800&h=1000&q=80" alt="" loading="lazy">
+            </a>
+            <button class="product-card__wish" data-kk-aria="Таңдаулыға қосу" data-ru-aria="Добавить в избранное" aria-label="Таңдаулыға қосу">
+              <svg viewBox="0 0 24 24"><path d="M12 20.2s-7.8-4.9-10-9.3C.4 7.8 2.2 4.5 5.5 4c2-.3 3.8.6 4.9 2.2C11.5 4.6 13.3 3.7 15.3 4c3.3.5 5.1 3.8 3.5 6.9-2.2 4.4-10 9.3-10 9.3z"/></svg>
+            </button>
+            <div class="product-dots">
+              <button class="dot is-active" data-i="0" aria-label="1"></button>
+              <button class="dot" data-i="1" aria-label="2"></button>
+              <button class="dot" data-i="2" aria-label="3"></button>
+              <button class="dot" data-i="3" aria-label="4"></button>
+            </div>
+          </div>
           <p class="product-card__brand">ALTYN WATCH</p>
-          <p class="product-card__name"><a href="#">Steppe Chronograph · Ref. AW-204</a></p>
+          <p class="product-card__name"><a href="#">Steppe Chronograph<span class="product-card__variant">, Ref. AW-204</span></a></p>
           <p class="product-card__price">890 000 ₸</p>
           <p class="product-card__stock i18n" data-kk="Қоймада" data-ru="В наличии">Қоймада</p>
         </article>
 
         <article class="product-card">
-          <a href="#" class="product-card__media">
-            <img src="https://images.unsplash.com/photo-1533139502658-0198f920d8e8?auto=format&fit=crop&w=800&h=1000&q=80" data-kk-alt="TISSOT PRX Powermatic 80, алдыңғы көрінісі" data-ru-alt="TISSOT PRX Powermatic 80, вид спереди" alt="TISSOT PRX Powermatic 80" loading="lazy">
-            <img src="https://images.unsplash.com/photo-1677466892001-91d1904b71bc?auto=format&fit=crop&w=800&h=1000&q=80" alt="" loading="lazy">
-          </a>
-          <button class="product-card__wish" data-kk-aria="Таңдаулыға қосу" data-ru-aria="Добавить в избранное" aria-label="Таңдаулыға қосу">
-            <svg viewBox="0 0 24 24"><path d="M12 20.2s-7.8-4.9-10-9.3C.4 7.8 2.2 4.5 5.5 4c2-.3 3.8.6 4.9 2.2C11.5 4.6 13.3 3.7 15.3 4c3.3.5 5.1 3.8 3.5 6.9-2.2 4.4-10 9.3-10 9.3z"/></svg>
-          </button>
+          <div class="product-card__figure">
+            <a href="#" class="product-card__media">
+              <img class="product-img is-active" data-i="0" src="https://images.unsplash.com/photo-1605143185650-77944b152643?auto=format&fit=crop&w=800&h=1000&q=80" data-kk-alt="TISSOT PRX Powermatic 80, алдыңғы көрінісі" data-ru-alt="TISSOT PRX Powermatic 80, вид спереди" alt="TISSOT PRX Powermatic 80" loading="lazy">
+              <img class="product-img" data-i="1" src="https://images.unsplash.com/photo-1603636489554-1349abc8287c?auto=format&fit=crop&w=800&h=1000&q=80" alt="" loading="lazy">
+              <img class="product-img" data-i="2" src="https://images.unsplash.com/photo-1633451238208-11c8e6c1fed4?auto=format&fit=crop&w=800&h=1000&q=80" alt="" loading="lazy">
+              <img class="product-img" data-i="3" src="https://images.unsplash.com/photo-1625571281352-caac5f5154fe?auto=format&fit=crop&w=800&h=1000&q=80" alt="" loading="lazy">
+            </a>
+            <button class="product-card__wish" data-kk-aria="Таңдаулыға қосу" data-ru-aria="Добавить в избранное" aria-label="Таңдаулыға қосу">
+              <svg viewBox="0 0 24 24"><path d="M12 20.2s-7.8-4.9-10-9.3C.4 7.8 2.2 4.5 5.5 4c2-.3 3.8.6 4.9 2.2C11.5 4.6 13.3 3.7 15.3 4c3.3.5 5.1 3.8 3.5 6.9-2.2 4.4-10 9.3-10 9.3z"/></svg>
+            </button>
+            <div class="product-dots">
+              <button class="dot is-active" data-i="0" aria-label="1"></button>
+              <button class="dot" data-i="1" aria-label="2"></button>
+              <button class="dot" data-i="2" aria-label="3"></button>
+              <button class="dot" data-i="3" aria-label="4"></button>
+            </div>
+          </div>
           <p class="product-card__brand">TISSOT</p>
-          <p class="product-card__name"><a href="#">PRX Powermatic 80 · Ref. T137</a></p>
+          <p class="product-card__name"><a href="#">PRX Powermatic 80<span class="product-card__variant">, Ref. T137</span></a></p>
           <p class="product-card__price">620 000 ₸</p>
           <p class="product-card__stock i18n" data-kk="Қоймада" data-ru="В наличии">Қоймада</p>
         </article>
 
         <article class="product-card">
-          <a href="#" class="product-card__media">
-            <img src="https://images.unsplash.com/photo-1689287428096-7e1dcc705a5c?auto=format&fit=crop&w=800&h=1000&q=80" data-kk-alt="LONGINES Master Collection, алдыңғы көрінісі" data-ru-alt="LONGINES Master Collection, вид спереди" alt="LONGINES Master Collection" loading="lazy">
-            <img src="https://images.unsplash.com/photo-1571291341483-2fdc082c59ba?auto=format&fit=crop&w=800&h=1000&q=80" alt="" loading="lazy">
-          </a>
-          <button class="product-card__wish" data-kk-aria="Таңдаулыға қосу" data-ru-aria="Добавить в избранное" aria-label="Таңдаулыға қосу">
-            <svg viewBox="0 0 24 24"><path d="M12 20.2s-7.8-4.9-10-9.3C.4 7.8 2.2 4.5 5.5 4c2-.3 3.8.6 4.9 2.2C11.5 4.6 13.3 3.7 15.3 4c3.3.5 5.1 3.8 3.5 6.9-2.2 4.4-10 9.3-10 9.3z"/></svg>
-          </button>
+          <div class="product-card__figure">
+            <a href="#" class="product-card__media">
+              <img class="product-img is-active" data-i="0" src="https://images.unsplash.com/photo-1634140704051-58a787556cd1?auto=format&fit=crop&w=800&h=1000&q=80" data-kk-alt="LONGINES Master Collection, алдыңғы көрінісі" data-ru-alt="LONGINES Master Collection, вид спереди" alt="LONGINES Master Collection" loading="lazy">
+              <img class="product-img" data-i="1" src="https://images.unsplash.com/photo-1571291341483-2fdc082c59ba?auto=format&fit=crop&w=800&h=1000&q=80" alt="" loading="lazy">
+              <img class="product-img" data-i="2" src="https://images.unsplash.com/photo-1603636489686-2ab6dc08fa8d?auto=format&fit=crop&w=800&h=1000&q=80" alt="" loading="lazy">
+              <img class="product-img" data-i="3" src="https://images.unsplash.com/photo-1646724810360-abfa1bb76d6d?auto=format&fit=crop&w=800&h=1000&q=80" alt="" loading="lazy">
+            </a>
+            <button class="product-card__wish" data-kk-aria="Таңдаулыға қосу" data-ru-aria="Добавить в избранное" aria-label="Таңдаулыға қосу">
+              <svg viewBox="0 0 24 24"><path d="M12 20.2s-7.8-4.9-10-9.3C.4 7.8 2.2 4.5 5.5 4c2-.3 3.8.6 4.9 2.2C11.5 4.6 13.3 3.7 15.3 4c3.3.5 5.1 3.8 3.5 6.9-2.2 4.4-10 9.3-10 9.3z"/></svg>
+            </button>
+            <div class="product-dots">
+              <button class="dot is-active" data-i="0" aria-label="1"></button>
+              <button class="dot" data-i="1" aria-label="2"></button>
+              <button class="dot" data-i="2" aria-label="3"></button>
+              <button class="dot" data-i="3" aria-label="4"></button>
+            </div>
+          </div>
           <p class="product-card__brand">LONGINES</p>
-          <p class="product-card__name"><a href="#">Master Collection · Ref. L2.628</a></p>
+          <p class="product-card__name"><a href="#">Master Collection<span class="product-card__variant">, Ref. L2.628</span></a></p>
           <p class="product-card__price">1 450 000 ₸</p>
           <p class="product-card__stock i18n" data-kk="Тапсырыспен" data-ru="Под заказ">Тапсырыспен</p>
         </article>
 
         <article class="product-card">
-          <a href="#" class="product-card__media">
-            <img src="https://images.unsplash.com/photo-1777457900943-7fd2f7c42529?auto=format&fit=crop&w=800&h=1000&q=80" data-kk-alt="OMEGA Seamaster Aqua Terra, алдыңғы көрінісі" data-ru-alt="OMEGA Seamaster Aqua Terra, вид спереди" alt="OMEGA Seamaster Aqua Terra" loading="lazy">
-            <img src="https://images.unsplash.com/photo-1625427074153-90dd72da99b4?auto=format&fit=crop&w=800&h=1000&q=80" alt="" loading="lazy">
-          </a>
-          <button class="product-card__wish" data-kk-aria="Таңдаулыға қосу" data-ru-aria="Добавить в избранное" aria-label="Таңдаулыға қосу">
-            <svg viewBox="0 0 24 24"><path d="M12 20.2s-7.8-4.9-10-9.3C.4 7.8 2.2 4.5 5.5 4c2-.3 3.8.6 4.9 2.2C11.5 4.6 13.3 3.7 15.3 4c3.3.5 5.1 3.8 3.5 6.9-2.2 4.4-10 9.3-10 9.3z"/></svg>
-          </button>
+          <div class="product-card__figure">
+            <a href="#" class="product-card__media">
+              <img class="product-img is-active" data-i="0" src="https://images.unsplash.com/photo-1603636489686-2ab6dc08fa8d?auto=format&fit=crop&w=800&h=1000&q=80" data-kk-alt="OMEGA Seamaster Aqua Terra, алдыңғы көрінісі" data-ru-alt="OMEGA Seamaster Aqua Terra, вид спереди" alt="OMEGA Seamaster Aqua Terra" loading="lazy">
+              <img class="product-img" data-i="1" src="https://images.unsplash.com/photo-1625427074153-90dd72da99b4?auto=format&fit=crop&w=800&h=1000&q=80" alt="" loading="lazy">
+              <img class="product-img" data-i="2" src="https://images.unsplash.com/photo-1595208599319-c1dcf5776170?auto=format&fit=crop&w=800&h=1000&q=80" alt="" loading="lazy">
+              <img class="product-img" data-i="3" src="https://images.unsplash.com/photo-1708453481658-117ced2f1d12?auto=format&fit=crop&w=800&h=1000&q=80" alt="" loading="lazy">
+            </a>
+            <button class="product-card__wish" data-kk-aria="Таңдаулыға қосу" data-ru-aria="Добавить в избранное" aria-label="Таңдаулыға қосу">
+              <svg viewBox="0 0 24 24"><path d="M12 20.2s-7.8-4.9-10-9.3C.4 7.8 2.2 4.5 5.5 4c2-.3 3.8.6 4.9 2.2C11.5 4.6 13.3 3.7 15.3 4c3.3.5 5.1 3.8 3.5 6.9-2.2 4.4-10 9.3-10 9.3z"/></svg>
+            </button>
+            <div class="product-dots">
+              <button class="dot is-active" data-i="0" aria-label="1"></button>
+              <button class="dot" data-i="1" aria-label="2"></button>
+              <button class="dot" data-i="2" aria-label="3"></button>
+              <button class="dot" data-i="3" aria-label="4"></button>
+            </div>
+          </div>
           <p class="product-card__brand">OMEGA</p>
-          <p class="product-card__name"><a href="#">Seamaster Aqua Terra · Ref. 220.10</a></p>
+          <p class="product-card__name"><a href="#">Seamaster Aqua Terra<span class="product-card__variant">, Ref. 220.10</span></a></p>
           <p class="product-card__price">3 200 000 ₸</p>
           <p class="product-card__stock i18n" data-kk="Қоймада" data-ru="В наличии">Қоймада</p>
         </article>
@@ -930,7 +1027,7 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
     <div class="insta-grid">
       <a class="insta-item" href="https://instagram.com/royal.watch.kz" target="_blank" rel="noopener"><img src="https://images.unsplash.com/photo-1625571281352-caac5f5154fe?auto=format&fit=crop&w=500&h=500&q=70" alt="" loading="lazy"></a>
       <a class="insta-item" href="https://instagram.com/royal.watch.kz" target="_blank" rel="noopener"><img src="https://images.unsplash.com/photo-1582043568773-a7a2b57239f5?auto=format&fit=crop&w=500&h=500&q=70" alt="" loading="lazy"></a>
-      <a class="insta-item" href="https://instagram.com/royal.watch.kz" target="_blank" rel="noopener"><img src="https://images.unsplash.com/photo-1533139502658-0198f920d8e8?auto=format&fit=crop&w=500&h=500&q=70" alt="" loading="lazy"></a>
+      <a class="insta-item" href="https://instagram.com/royal.watch.kz" target="_blank" rel="noopener"><img src="https://images.unsplash.com/photo-1545697729-0ab8f5b1954c?auto=format&fit=crop&w=500&h=500&q=70" alt="" loading="lazy"></a>
       <a class="insta-item" href="https://instagram.com/royal.watch.kz" target="_blank" rel="noopener"><img src="https://images.unsplash.com/photo-1582043568223-338d62fc01fe?auto=format&fit=crop&w=500&h=500&q=70" alt="" loading="lazy"></a>
       <a class="insta-item" href="https://instagram.com/royal.watch.kz" target="_blank" rel="noopener"><img src="https://images.unsplash.com/photo-1509048191080-d2984bad6ae5?auto=format&fit=crop&w=500&h=500&q=70" alt="" loading="lazy"></a>
       <a class="insta-item" href="https://instagram.com/royal.watch.kz" target="_blank" rel="noopener"><img src="https://images.unsplash.com/photo-1545697729-0ab8f5b1954c?auto=format&fit=crop&w=500&h=500&q=70" alt="" loading="lazy"></a>
@@ -1173,6 +1270,53 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
       ticking = false;
     });
   }, { passive: true });
+
+  /* ---------- Product grid: grid/feed view switcher ---------- */
+  var newArrivalsGrid = document.getElementById("newArrivalsGrid");
+  document.querySelectorAll(".view-btn").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      document.querySelectorAll(".view-btn").forEach(function(b){
+        b.classList.remove("is-active");
+        b.setAttribute("aria-pressed", "false");
+      });
+      this.classList.add("is-active");
+      this.setAttribute("aria-pressed", "true");
+      if (newArrivalsGrid) newArrivalsGrid.classList.toggle("is-feed", this.dataset.view === "feed");
+    });
+  });
+
+  /* ---------- Product card: 4-photo dot navigation (click + swipe) ---------- */
+  document.querySelectorAll(".product-card").forEach(function(card){
+    var imgs = Array.prototype.slice.call(card.querySelectorAll(".product-img"));
+    var dots = Array.prototype.slice.call(card.querySelectorAll(".dot"));
+    if (!imgs.length) return;
+
+    function showImage(i){
+      imgs.forEach(function(img){ img.classList.toggle("is-active", img.dataset.i === String(i)); });
+      dots.forEach(function(dot){ dot.classList.toggle("is-active", dot.dataset.i === String(i)); });
+    }
+
+    dots.forEach(function(dot){
+      dot.addEventListener("click", function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        showImage(this.dataset.i);
+      });
+    });
+
+    var figure = card.querySelector(".product-card__figure");
+    var touchStartX = null;
+    figure.addEventListener("touchstart", function(e){ touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+    figure.addEventListener("touchend", function(e){
+      if (touchStartX === null) return;
+      var dx = e.changedTouches[0].clientX - touchStartX;
+      touchStartX = null;
+      if (Math.abs(dx) < 30) return;
+      var current = imgs.findIndex(function(img){ return img.classList.contains("is-active"); });
+      var next = dx < 0 ? (current + 1) % imgs.length : (current - 1 + imgs.length) % imgs.length;
+      showImage(next);
+    }, { passive: true });
+  });
 
   /* ---------- Newsletter (static demo) ---------- */
   document.getElementById("newsletterForm").addEventListener("submit", function(e){
