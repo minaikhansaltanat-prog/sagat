@@ -2797,7 +2797,8 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
 
   /* ---------- Language ---------- */
   var WA_PHONE = "77081664466";
-  var WA_TEXT = { kk:"Сәлеметсіз бе! ROYAL WATCH сайты арқылы жазып отырмын.", ru:"Здравствуйте! Пишу с сайта ROYAL WATCH." };
+  var WA_PREFIX = { kk:"Royal Watch сайтынан жазып тұрмын. ", ru:"Пишу с сайта Royal Watch. " };
+  var WA_TEXT = { kk:"Royal Watch сайтынан жазып тұрмын.", ru:"Пишу с сайта Royal Watch." };
 
   function updateWaLinks(lang){
     var href = "https://wa.me/" + WA_PHONE + "?text=" + encodeURIComponent(WA_TEXT[lang] || WA_TEXT.kk);
@@ -2826,7 +2827,7 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
     });
     document.querySelectorAll("[data-kk-msg]").forEach(function(el){
       var msg = el.dataset[lang + "Msg"];
-      if (msg !== undefined) el.href = "https://wa.me/" + WA_PHONE + "?text=" + encodeURIComponent(msg);
+      if (msg !== undefined) el.href = "https://wa.me/" + WA_PHONE + "?text=" + encodeURIComponent(WA_PREFIX[lang] + msg);
     });
 
     document.querySelectorAll(".lang-btn").forEach(function(b){
