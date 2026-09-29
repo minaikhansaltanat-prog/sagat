@@ -656,12 +656,8 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
         <button class="icon-btn desktop-only" data-kk-aria="Профиль" data-ru-aria="Профиль" aria-label="Профиль" title="Профиль (жақында) / Профиль (скоро)">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c1.6-4 5-6 7.5-6s5.9 2 7.5 6"/></svg>
         </button>
-        <button class="icon-btn desktop-only" id="wishlistOpenBtn" data-kk-aria="Таңдаулылар" data-ru-aria="Избранное" aria-label="Таңдаулылар">
+        <button class="icon-btn" id="wishlistOpenBtn" data-kk-aria="Таңдаулылар" data-ru-aria="Избранное" aria-label="Таңдаулылар">
           <svg viewBox="0 0 24 24"><path d="M12 20.2s-7.8-4.9-10-9.3C.4 7.8 2.2 4.5 5.5 4c2-.3 3.8.6 4.9 2.2C11.5 4.6 13.3 3.7 15.3 4c3.3.5 5.1 3.8 3.5 6.9-2.2 4.4-10 9.3-10 9.3z"/></svg>
-          <span class="badge">0</span>
-        </button>
-        <button class="icon-btn" id="cartOpenBtn" data-kk-aria="Себет" data-ru-aria="Корзина" aria-label="Себет">
-          <svg viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
           <span class="badge">0</span>
         </button>
       </div>
@@ -753,25 +749,6 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
       <p class="i18n" data-kk="Таңдаулылар тізімі әзірге бос." data-ru="Список избранного пока пуст.">Таңдаулылар тізімі әзірге бос.</p>
       <button class="btn btn-outline drawer-close" data-target="wishlistDrawer">
         <span class="i18n" data-kk="Каталогқа өту" data-ru="Перейти в каталог">Каталогқа өту</span>
-      </button>
-    </div>
-  </div>
-</div>
-
-<!-- Cart drawer -->
-<div class="drawer drawer--right" id="cartDrawer" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Себет">
-  <div class="drawer__head">
-    <span class="drawer__title i18n" data-kk="Себет" data-ru="Корзина">Себет</span>
-    <button class="icon-btn drawer-close" data-target="cartDrawer" data-kk-aria="Жабу" data-ru-aria="Закрыть" aria-label="Жабу">
-      <svg viewBox="0 0 24 24"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
-    </button>
-  </div>
-  <div class="drawer__body">
-    <div class="drawer-empty">
-      <svg viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
-      <p class="i18n" data-kk="Себетіңіз бос. Тауар қосу үшін каталогты қараңыз." data-ru="Ваша корзина пуста. Добавьте товары из каталога.">Себетіңіз бос. Тауар қосу үшін каталогты қараңыз.</p>
-      <button class="btn btn-primary drawer-close" data-target="cartDrawer">
-        <span class="i18n" data-kk="Дүкенге оралу" data-ru="Вернуться в магазин">Дүкенге оралу</span>
       </button>
     </div>
   </div>
@@ -2617,7 +2594,6 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
 
   var mobileMenu = document.getElementById("mobileMenu");
   var wishlistDrawer = document.getElementById("wishlistDrawer");
-  var cartDrawer = document.getElementById("cartDrawer");
 
   document.getElementById("menuOpenBtn").addEventListener("click", function(){
     this.setAttribute("aria-expanded", "true");
@@ -2631,7 +2607,6 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
     var b = document.getElementById(id);
     if (b) b.addEventListener("click", function(){ closeDrawer(mobileMenu); openDrawer(wishlistDrawer); });
   });
-  document.getElementById("cartOpenBtn").addEventListener("click", function(){ openDrawer(cartDrawer); });
   document.querySelectorAll(".drawer-close").forEach(function(btn){
     btn.addEventListener("click", function(){ closeDrawer(document.getElementById(btn.dataset.target)); });
   });
