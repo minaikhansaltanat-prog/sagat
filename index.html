@@ -322,7 +322,7 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
 .product-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:22px 16px; }
 @media (min-width:768px){ .product-grid{ gap:28px 24px; } }
 @media (min-width:1024px){ .product-grid{ grid-template-columns:repeat(4,1fr); } }
-.product-card{ position:relative; }
+.product-card{ position:relative; display:flex; flex-direction:column; }
 
 /* Toolbar: result count + grid/feed view switcher (delicate line icons) */
 .grid-toolbar{
@@ -374,9 +374,20 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
 .product-card__name a{ background-image:linear-gradient(currentColor,currentColor); background-position:0 100%; background-repeat:no-repeat; background-size:0 1px; transition:background-size .25s var(--ease); }
 .product-card:hover .product-card__name a{ background-size:100% 1px; }
 .product-card__price{ font-size:13px; font-weight:400; }
+.product-card__tagline{ display:none; font-size:13px; color:var(--text-soft); line-height:1.5; margin-top:4px; }
+.product-card__specs{ display:none; list-style:none; margin:14px 0 4px; padding:14px 0 0; border-top:1px solid var(--line); }
+.product-card__specs li{ position:relative; padding-left:16px; font-size:13px; line-height:1.9; color:var(--text-soft); }
+.product-card__specs li::before{ content:""; position:absolute; left:0; top:.95em; width:7px; height:1px; background:var(--ink); }
+.product-grid.is-feed .product-card__specs{ display:block; }
+.product-grid.is-feed .product-card__tagline{ display:block; }
 .product-card__stock{ font-size:11px; color:var(--text-soft); margin-top:4px; }
 
-.product-actions{ display:flex; gap:8px; margin-top:12px; }
+.product-actions{ display:flex; gap:8px; margin-top:auto; padding-top:12px; }
+@media (max-width:767px){
+  .product-actions{ gap:6px; }
+  .dot{ background:rgba(255,255,255,.85); box-shadow:0 0 0 1px rgba(0,0,0,.35); }
+  .dot.is-active{ background:var(--ink); box-shadow:0 0 0 1px #fff; }
+}
 .product-btn{
   flex:1; height:34px; display:flex; align-items:center; justify-content:center;
   font-size:10px; letter-spacing:.08em; text-transform:uppercase; font-weight:500;
@@ -386,8 +397,9 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
 .product-btn--buy:hover{ background:var(--ink-2); }
 .product-btn--details{ background:transparent; color:var(--ink); border:1px solid var(--line-input); }
 .product-btn--details:hover{ background:var(--ink); color:#fff; border-color:var(--ink); }
-.product-grid.is-feed .product-actions{ margin-top:16px; }
-.product-grid.is-feed .product-btn{ height:40px; font-size:11px; }
+.product-grid.is-feed .product-actions{ margin-top:16px; padding-top:0; }
+@media (max-width:767px){ .product-btn{ height:40px; letter-spacing:.04em; font-size:9.5px; padding:0 4px; } }
+.product-grid.is-feed .product-btn{ height:40px; font-size:11px; letter-spacing:.08em; }
 
 /* Feed view: single column, first photo large — like an editorial feed */
 .product-grid.is-feed{ display:block; max-width:560px; margin:0 auto; }
@@ -806,11 +818,11 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
     </p>
     <div class="mobile-featured__card">
       <div class="mobile-featured__media">
-        <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=900&h=1125&q=80" data-kk-alt="ALTYN WATCH Steppe Chronograph" data-ru-alt="ALTYN WATCH Steppe Chronograph" alt="ALTYN WATCH Steppe Chronograph" loading="lazy">
+        <img src="images/cso-watch/1.jpg" data-kk-alt="CSO WATCH Steel Quartz" data-ru-alt="CSO WATCH Steel Quartz" alt="CSO WATCH Steel Quartz" loading="lazy">
       </div>
-      <p class="product-card__brand">ALTYN WATCH</p>
-      <p class="product-card__name">Steppe Chronograph · Ref. AW-204</p>
-      <p class="product-card__price" style="margin-bottom:18px;">890 000 ₸</p>
+      <p class="product-card__brand">CSO WATCH</p>
+      <p class="product-card__name">Steel Quartz</p>
+      <p class="product-card__price" style="margin-bottom:18px;">22 000 ₸</p>
       <a href="#new-arrivals" class="btn btn-outline i18n" data-kk="Өнімді көру" data-ru="Смотреть товар">Өнімді көру</a>
     </div>
   </section>
@@ -824,7 +836,7 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
       </div>
 
       <div class="grid-toolbar">
-        <span class="grid-toolbar__count"><span class="grid-toolbar__num">4</span> <span class="i18n" data-kk="модель" data-ru="модели">модель</span></span>
+        <span class="grid-toolbar__count"><span class="grid-toolbar__num">12</span> <span class="i18n" data-kk="модель" data-ru="модели">модель</span></span>
         <div class="grid-toolbar__views" role="group" data-kk-aria="Көрініс режимі" data-ru-aria="Режим отображения" aria-label="Көрініс режимі">
           <button class="view-btn is-active" data-view="grid" data-kk-aria="Тор көрінісі" data-ru-aria="Вид сеткой" aria-label="Тор көрінісі" aria-pressed="true">
             <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5"/><rect x="13.5" y="3" width="7.5" height="7.5"/><rect x="3" y="13.5" width="7.5" height="7.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5"/></svg>
@@ -840,10 +852,11 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
         <article class="product-card">
           <div class="product-card__figure">
             <a href="#" class="product-card__media">
-              <img class="product-img is-active" data-i="0" src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=800&h=1000&q=80" data-kk-alt="ALTYN WATCH Steppe Chronograph, алдыңғы көрінісі" data-ru-alt="ALTYN WATCH Steppe Chronograph, вид спереди" alt="ALTYN WATCH Steppe Chronograph" loading="lazy">
-              <img class="product-img" data-i="1" src="https://images.unsplash.com/photo-1583198432859-635beb4e8600?auto=format&fit=crop&w=800&h=1000&q=80" alt="" loading="lazy">
-              <img class="product-img" data-i="2" src="https://images.unsplash.com/photo-1677466892001-91d1904b71bc?auto=format&fit=crop&w=800&h=1000&q=80" alt="" loading="lazy">
-              <img class="product-img" data-i="3" src="https://images.unsplash.com/photo-1716406536069-c27068316336?auto=format&fit=crop&w=800&h=1000&q=80" alt="" loading="lazy">
+              <img class="product-img is-active" data-i="0" src="images/cso-watch/1.jpg" data-kk-alt="CSO WATCH Steel Quartz, алдыңғы көрінісі" data-ru-alt="CSO WATCH Steel Quartz, вид спереди" alt="CSO WATCH Steel Quartz" loading="lazy">
+              <img class="product-img" data-i="1" src="images/cso-watch/2.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="2" src="images/cso-watch/3.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="3" src="images/cso-watch/4.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="4" src="images/cso-watch/5.jpg" alt="" loading="lazy">
             </a>
             <button class="product-card__wish" data-kk-aria="Таңдаулыға қосу" data-ru-aria="Добавить в избранное" aria-label="Таңдаулыға қосу">
               <svg viewBox="0 0 24 24"><path d="M12 20.2s-7.8-4.9-10-9.3C.4 7.8 2.2 4.5 5.5 4c2-.3 3.8.6 4.9 2.2C11.5 4.6 13.3 3.7 15.3 4c3.3.5 5.1 3.8 3.5 6.9-2.2 4.4-10 9.3-10 9.3z"/></svg>
@@ -853,21 +866,31 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
               <button class="dot" data-i="1" aria-label="2"></button>
               <button class="dot" data-i="2" aria-label="3"></button>
               <button class="dot" data-i="3" aria-label="4"></button>
+              <button class="dot" data-i="4" aria-label="5"></button>
             </div>
           </div>
-          <p class="product-card__brand">ALTYN WATCH</p>
-          <p class="product-card__name"><a href="#">Steppe Chronograph<span class="product-card__variant">, Ref. AW-204</span></a></p>
-          <p class="product-card__price">890 000 ₸</p>
+          <p class="product-card__brand">CSO WATCH</p>
+          <p class="product-card__name"><a href="#">Steel Quartz<span class="product-card__variant">, Graphite</span></a></p>
+          <p class="product-card__price">22 000 ₸</p>
+          <p class="product-card__tagline i18n" data-kk="Күнделікті киюге де, сыйлыққа да таптырмас таңдау" data-ru="Отличный вариант на каждый день и в подарок">Күнделікті киюге де, сыйлыққа да таптырмас таңдау</p>
+          <ul class="product-card__specs">
+              <li class="i18n" data-kk="Корпус — тот баспайтын болат" data-ru="Корпус — нержавеющая сталь">Корпус — тот баспайтын болат</li>
+              <li class="i18n" data-kk="Білезік — болат" data-ru="Ремешок — сталь">Білезік — болат</li>
+              <li class="i18n" data-kk="Әйнек — минералды" data-ru="Стекло — минеральное">Әйнек — минералды</li>
+              <li class="i18n" data-kk="Кварц механизмі" data-ru="Кварцевый механизм">Кварц механизмі</li>
+              <li class="i18n" data-kk="Дәл жүріс" data-ru="Точный ход">Дәл жүріс</li>
+              <li class="i18n" data-kk="Стильді премиум дизайн" data-ru="Стильный премиальный дизайн">Стильді премиум дизайн</li>
+          </ul>
           <p class="product-card__stock i18n" data-kk="Қоймада" data-ru="В наличии">Қоймада</p>
           <div class="product-actions">
             <a href="#" class="product-btn product-btn--buy js-wa-msg" target="_blank" rel="noopener"
-               data-kk-msg="Сәлеметсіз бе! Маған ALTYN WATCH Steppe Chronograph сағаты қызықты. Осы сағатты сатып алғым келеді."
-               data-ru-msg="Здравствуйте! Меня заинтересовали часы ALTYN WATCH Steppe Chronograph. Хочу купить эти часы.">
+               data-kk-msg="Сәлеметсіз бе! Маған CSO WATCH Steel Quartz сағаты қызықты. Осы сағатты сатып алғым келеді."
+               data-ru-msg="Здравствуйте! Меня заинтересовали часы CSO WATCH Steel Quartz. Хочу купить эти часы.">
               <span class="i18n" data-kk="Сатып алу" data-ru="Купить">Сатып алу</span>
             </a>
             <a href="#" class="product-btn product-btn--details js-wa-msg" target="_blank" rel="noopener"
-               data-kk-msg="Сәлеметсіз бе! Маған ALTYN WATCH Steppe Chronograph сағаты туралы толық ақпарат беріңізші."
-               data-ru-msg="Здравствуйте! Расскажите, пожалуйста, подробнее о часах ALTYN WATCH Steppe Chronograph.">
+               data-kk-msg="Сәлеметсіз бе! Маған CSO WATCH Steel Quartz сағаты туралы толық ақпарат беріңізші."
+               data-ru-msg="Здравствуйте! Расскажите, пожалуйста, подробнее о часах CSO WATCH Steel Quartz.">
               <span class="i18n" data-kk="Толығырақ" data-ru="Подробнее">Толығырақ</span>
             </a>
           </div>
@@ -876,10 +899,12 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
         <article class="product-card">
           <div class="product-card__figure">
             <a href="#" class="product-card__media">
-              <img class="product-img is-active" data-i="0" src="https://images.unsplash.com/photo-1605143185650-77944b152643?auto=format&fit=crop&w=800&h=1000&q=80" data-kk-alt="TISSOT PRX Powermatic 80, алдыңғы көрінісі" data-ru-alt="TISSOT PRX Powermatic 80, вид спереди" alt="TISSOT PRX Powermatic 80" loading="lazy">
-              <img class="product-img" data-i="1" src="https://images.unsplash.com/photo-1603636489554-1349abc8287c?auto=format&fit=crop&w=800&h=1000&q=80" alt="" loading="lazy">
-              <img class="product-img" data-i="2" src="https://images.unsplash.com/photo-1633451238208-11c8e6c1fed4?auto=format&fit=crop&w=800&h=1000&q=80" alt="" loading="lazy">
-              <img class="product-img" data-i="3" src="https://images.unsplash.com/photo-1625571281352-caac5f5154fe?auto=format&fit=crop&w=800&h=1000&q=80" alt="" loading="lazy">
+              <img class="product-img is-active" data-i="0" src="images/cso-watch-2/1.jpg" data-kk-alt="CSO WATCH Steel Quartz Turquoise, алдыңғы көрінісі" data-ru-alt="CSO WATCH Steel Quartz Turquoise, вид спереди" alt="CSO WATCH Steel Quartz Turquoise" loading="lazy">
+              <img class="product-img" data-i="1" src="images/cso-watch-2/2.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="2" src="images/cso-watch-2/3.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="3" src="images/cso-watch-2/4.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="4" src="images/cso-watch-2/5.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="5" src="images/cso-watch-2/6.jpg" alt="" loading="lazy">
             </a>
             <button class="product-card__wish" data-kk-aria="Таңдаулыға қосу" data-ru-aria="Добавить в избранное" aria-label="Таңдаулыға қосу">
               <svg viewBox="0 0 24 24"><path d="M12 20.2s-7.8-4.9-10-9.3C.4 7.8 2.2 4.5 5.5 4c2-.3 3.8.6 4.9 2.2C11.5 4.6 13.3 3.7 15.3 4c3.3.5 5.1 3.8 3.5 6.9-2.2 4.4-10 9.3-10 9.3z"/></svg>
@@ -889,21 +914,32 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
               <button class="dot" data-i="1" aria-label="2"></button>
               <button class="dot" data-i="2" aria-label="3"></button>
               <button class="dot" data-i="3" aria-label="4"></button>
+              <button class="dot" data-i="4" aria-label="5"></button>
+              <button class="dot" data-i="5" aria-label="6"></button>
             </div>
           </div>
-          <p class="product-card__brand">TISSOT</p>
-          <p class="product-card__name"><a href="#">PRX Powermatic 80<span class="product-card__variant">, Ref. T137</span></a></p>
-          <p class="product-card__price">620 000 ₸</p>
+          <p class="product-card__brand">CSO WATCH</p>
+          <p class="product-card__name"><a href="#">Steel Quartz<span class="product-card__variant">, Turquoise</span></a></p>
+          <p class="product-card__price">22 000 ₸</p>
+          <p class="product-card__tagline i18n" data-kk="Күнделікті киюге де, сыйлыққа да таптырмас таңдау" data-ru="Отличный вариант на каждый день и в подарок">Күнделікті киюге де, сыйлыққа да таптырмас таңдау</p>
+          <ul class="product-card__specs">
+              <li class="i18n" data-kk="Корпус — тот баспайтын болат" data-ru="Корпус — нержавеющая сталь">Корпус — тот баспайтын болат</li>
+              <li class="i18n" data-kk="Білезік — болат" data-ru="Ремешок — сталь">Білезік — болат</li>
+              <li class="i18n" data-kk="Әйнек — минералды" data-ru="Стекло — минеральное">Әйнек — минералды</li>
+              <li class="i18n" data-kk="Кварц механизмі" data-ru="Кварцевый механизм">Кварц механизмі</li>
+              <li class="i18n" data-kk="Дәл жүріс" data-ru="Точный ход">Дәл жүріс</li>
+              <li class="i18n" data-kk="Стильді премиум дизайн" data-ru="Стильный премиальный дизайн">Стильді премиум дизайн</li>
+          </ul>
           <p class="product-card__stock i18n" data-kk="Қоймада" data-ru="В наличии">Қоймада</p>
           <div class="product-actions">
             <a href="#" class="product-btn product-btn--buy js-wa-msg" target="_blank" rel="noopener"
-               data-kk-msg="Сәлеметсіз бе! Маған TISSOT PRX Powermatic 80 сағаты қызықты. Осы сағатты сатып алғым келеді."
-               data-ru-msg="Здравствуйте! Меня заинтересовали часы TISSOT PRX Powermatic 80. Хочу купить эти часы.">
+               data-kk-msg="Сәлеметсіз бе! Маған CSO WATCH Steel Quartz Turquoise сағаты қызықты. Осы сағатты сатып алғым келеді."
+               data-ru-msg="Здравствуйте! Меня заинтересовали часы CSO WATCH Steel Quartz Turquoise. Хочу купить эти часы.">
               <span class="i18n" data-kk="Сатып алу" data-ru="Купить">Сатып алу</span>
             </a>
             <a href="#" class="product-btn product-btn--details js-wa-msg" target="_blank" rel="noopener"
-               data-kk-msg="Сәлеметсіз бе! Маған TISSOT PRX Powermatic 80 сағаты туралы толық ақпарат беріңізші."
-               data-ru-msg="Здравствуйте! Расскажите, пожалуйста, подробнее о часах TISSOT PRX Powermatic 80.">
+               data-kk-msg="Сәлеметсіз бе! Маған CSO WATCH Steel Quartz Turquoise сағаты туралы толық ақпарат беріңізші."
+               data-ru-msg="Здравствуйте! Расскажите, пожалуйста, подробнее о часах CSO WATCH Steel Quartz Turquoise.">
               <span class="i18n" data-kk="Толығырақ" data-ru="Подробнее">Толығырақ</span>
             </a>
           </div>
@@ -912,10 +948,12 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
         <article class="product-card">
           <div class="product-card__figure">
             <a href="#" class="product-card__media">
-              <img class="product-img is-active" data-i="0" src="https://images.unsplash.com/photo-1582043568223-338d62fc01fe?auto=format&fit=crop&w=800&h=1000&q=80" data-kk-alt="LONGINES Master Collection, алдыңғы көрінісі" data-ru-alt="LONGINES Master Collection, вид спереди" alt="LONGINES Master Collection" loading="lazy">
-              <img class="product-img" data-i="1" src="https://images.unsplash.com/photo-1571291341483-2fdc082c59ba?auto=format&fit=crop&w=800&h=1000&q=80" alt="" loading="lazy">
-              <img class="product-img" data-i="2" src="https://images.unsplash.com/photo-1603636489686-2ab6dc08fa8d?auto=format&fit=crop&w=800&h=1000&q=80" alt="" loading="lazy">
-              <img class="product-img" data-i="3" src="https://images.unsplash.com/photo-1646724810360-abfa1bb76d6d?auto=format&fit=crop&w=800&h=1000&q=80" alt="" loading="lazy">
+              <img class="product-img is-active" data-i="0" src="images/premium-watch-big/1.jpg" data-kk-alt="PREMIUM WATCH BIG, алдыңғы көрінісі" data-ru-alt="PREMIUM WATCH BIG, вид спереди" alt="PREMIUM WATCH BIG" loading="lazy">
+              <img class="product-img" data-i="1" src="images/premium-watch-big/2.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="2" src="images/premium-watch-big/3.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="3" src="images/premium-watch-big/4.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="4" src="images/premium-watch-big/5.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="5" src="images/premium-watch-big/6.jpg" alt="" loading="lazy">
             </a>
             <button class="product-card__wish" data-kk-aria="Таңдаулыға қосу" data-ru-aria="Добавить в избранное" aria-label="Таңдаулыға қосу">
               <svg viewBox="0 0 24 24"><path d="M12 20.2s-7.8-4.9-10-9.3C.4 7.8 2.2 4.5 5.5 4c2-.3 3.8.6 4.9 2.2C11.5 4.6 13.3 3.7 15.3 4c3.3.5 5.1 3.8 3.5 6.9-2.2 4.4-10 9.3-10 9.3z"/></svg>
@@ -925,21 +963,38 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
               <button class="dot" data-i="1" aria-label="2"></button>
               <button class="dot" data-i="2" aria-label="3"></button>
               <button class="dot" data-i="3" aria-label="4"></button>
+              <button class="dot" data-i="4" aria-label="5"></button>
+              <button class="dot" data-i="5" aria-label="6"></button>
             </div>
           </div>
-          <p class="product-card__brand">LONGINES</p>
-          <p class="product-card__name"><a href="#">Master Collection<span class="product-card__variant">, Ref. L2.628</span></a></p>
-          <p class="product-card__price">1 450 000 ₸</p>
-          <p class="product-card__stock i18n" data-kk="Тапсырыспен" data-ru="Под заказ">Тапсырыспен</p>
+          <p class="product-card__brand">PREMIUM WATCH</p>
+          <p class="product-card__name"><a href="#">BIG<span class="product-card__variant">, AAA Premium</span></a></p>
+          <p class="product-card__price">85 000 ₸</p>
+          <p class="product-card__tagline i18n" data-kk="Мәртебелі ханымдарға арналған мәртебелі модель. Мінсіз детальдар. Премиум мінез." data-ru="Статусная модель для статусных дам. Безупречные детали. Премиальный характер.">Мәртебелі ханымдарға арналған мәртебелі модель. Мінсіз детальдар. Премиум мінез.</p>
+          <ul class="product-card__specs">
+              <li class="i18n" data-kk="Корпус — премиум тот баспайтын болат" data-ru="Корпус — премиальная нержавеющая сталь">Корпус — премиум тот баспайтын болат</li>
+              <li class="i18n" data-kk="Білезік — болат" data-ru="Браслет — стальной">Білезік — болат</li>
+              <li class="i18n" data-kk="Әйнек — Sapphire Crystal" data-ru="Стекло — Sapphire Crystal">Әйнек — Sapphire Crystal</li>
+              <li class="i18n" data-kk="Механизм — Swiss Made" data-ru="Механизм — Swiss Made">Механизм — Swiss Made</li>
+              <li class="i18n" data-kk="Жүріс қоры — 26 сағатқа дейін" data-ru="Запас хода — до 26 часов">Жүріс қоры — 26 сағатқа дейін</li>
+              <li class="i18n" data-kk="Циферблат — премиум орындау" data-ru="Циферблат — премиум-исполнение">Циферблат — премиум орындау</li>
+              <li class="i18n" data-kk="Класс — AAA Premium" data-ru="Класс — AAA Premium">Класс — AAA Premium</li>
+              <li class="i18n" data-kk="Кепілдік және қызмет көрсету — 2 жыл" data-ru="Гарантия и обслуживание — 2 года">Кепілдік және қызмет көрсету — 2 жыл</li>
+              <li class="i18n" data-kk="Құжаттардың толық жинағы" data-ru="Полный комплект документов">Құжаттардың толық жинағы</li>
+              <li class="i18n" data-kk="Премиум қаптама" data-ru="Премиальная упаковка">Премиум қаптама</li>
+              <li class="i18n" data-kk="Фирмалық пакет" data-ru="Фирменный пакет">Фирмалық пакет</li>
+              <li class="i18n" data-kk="Бұйымның түпнұсқа коды" data-ru="Оригинальный код изделия">Бұйымның түпнұсқа коды</li>
+          </ul>
+          <p class="product-card__stock i18n" data-kk="Қоймада" data-ru="В наличии">Қоймада</p>
           <div class="product-actions">
             <a href="#" class="product-btn product-btn--buy js-wa-msg" target="_blank" rel="noopener"
-               data-kk-msg="Сәлеметсіз бе! Маған LONGINES Master Collection сағаты қызықты. Осы сағатты сатып алғым келеді."
-               data-ru-msg="Здравствуйте! Меня заинтересовали часы LONGINES Master Collection. Хочу купить эти часы.">
+               data-kk-msg="Сәлеметсіз бе! Маған PREMIUM WATCH BIG сағаты қызықты. Осы сағатты сатып алғым келеді."
+               data-ru-msg="Здравствуйте! Меня заинтересовали часы PREMIUM WATCH BIG. Хочу купить эти часы.">
               <span class="i18n" data-kk="Сатып алу" data-ru="Купить">Сатып алу</span>
             </a>
             <a href="#" class="product-btn product-btn--details js-wa-msg" target="_blank" rel="noopener"
-               data-kk-msg="Сәлеметсіз бе! Маған LONGINES Master Collection сағаты туралы толық ақпарат беріңізші."
-               data-ru-msg="Здравствуйте! Расскажите, пожалуйста, подробнее о часах LONGINES Master Collection.">
+               data-kk-msg="Сәлеметсіз бе! Маған PREMIUM WATCH BIG сағаты туралы толық ақпарат беріңізші."
+               data-ru-msg="Здравствуйте! Расскажите, пожалуйста, подробнее о часах PREMIUM WATCH BIG.">
               <span class="i18n" data-kk="Толығырақ" data-ru="Подробнее">Толығырақ</span>
             </a>
           </div>
@@ -948,10 +1003,60 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
         <article class="product-card">
           <div class="product-card__figure">
             <a href="#" class="product-card__media">
-              <img class="product-img is-active" data-i="0" src="https://images.unsplash.com/photo-1603636489686-2ab6dc08fa8d?auto=format&fit=crop&w=800&h=1000&q=80" data-kk-alt="OMEGA Seamaster Aqua Terra, алдыңғы көрінісі" data-ru-alt="OMEGA Seamaster Aqua Terra, вид спереди" alt="OMEGA Seamaster Aqua Terra" loading="lazy">
-              <img class="product-img" data-i="1" src="https://images.unsplash.com/photo-1625427074153-90dd72da99b4?auto=format&fit=crop&w=800&h=1000&q=80" alt="" loading="lazy">
-              <img class="product-img" data-i="2" src="https://images.unsplash.com/photo-1595208599319-c1dcf5776170?auto=format&fit=crop&w=800&h=1000&q=80" alt="" loading="lazy">
-              <img class="product-img" data-i="3" src="https://images.unsplash.com/photo-1708453481658-117ced2f1d12?auto=format&fit=crop&w=800&h=1000&q=80" alt="" loading="lazy">
+              <img class="product-img is-active" data-i="0" src="images/hbt-stylish/1.jpg" data-kk-alt="HBT Stylish Collection, алдыңғы көрінісі" data-ru-alt="HBT Stylish Collection, вид спереди" alt="HBT Stylish Collection" loading="lazy">
+              <img class="product-img" data-i="1" src="images/hbt-stylish/2.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="2" src="images/hbt-stylish/3.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="3" src="images/hbt-stylish/4.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="4" src="images/hbt-stylish/5.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="5" src="images/hbt-stylish/6.jpg" alt="" loading="lazy">
+            </a>
+            <button class="product-card__wish" data-kk-aria="Таңдаулыға қосу" data-ru-aria="Добавить в избранное" aria-label="Таңдаулыға қосу">
+              <svg viewBox="0 0 24 24"><path d="M12 20.2s-7.8-4.9-10-9.3C.4 7.8 2.2 4.5 5.5 4c2-.3 3.8.6 4.9 2.2C11.5 4.6 13.3 3.7 15.3 4c3.3.5 5.1 3.8 3.5 6.9-2.2 4.4-10 9.3-10 9.3z"/></svg>
+            </button>
+            <div class="product-dots">
+              <button class="dot is-active" data-i="0" aria-label="1"></button>
+              <button class="dot" data-i="1" aria-label="2"></button>
+              <button class="dot" data-i="2" aria-label="3"></button>
+              <button class="dot" data-i="3" aria-label="4"></button>
+              <button class="dot" data-i="4" aria-label="5"></button>
+              <button class="dot" data-i="5" aria-label="6"></button>
+            </div>
+          </div>
+          <p class="product-card__brand">HBT</p>
+          <p class="product-card__name"><a href="#">Stylish Collection<span class="product-card__variant">, Silver</span></a></p>
+          <p class="product-card__price">12 000 ₸</p>
+          <p class="product-card__tagline i18n" data-kk="Күнделікті киюге арналған сәнді сағат: ұқыпты дизайн және әр детальда жайлылық. Күнделікті киюге де, сыйлыққа да таптырмас таңдау." data-ru="Стильные часы на каждый день — лаконичный дизайн и комфорт в каждой детали. Отличный вариант на каждый день или в подарок.">Күнделікті киюге арналған сәнді сағат: ұқыпты дизайн және әр детальда жайлылық. Күнделікті киюге де, сыйлыққа да таптырмас таңдау.</p>
+          <ul class="product-card__specs">
+              <li class="i18n" data-kk="Корпус — тот баспайтын болат" data-ru="Корпус — нержавеющая сталь">Корпус — тот баспайтын болат</li>
+              <li class="i18n" data-kk="Бау — сапалы каучук" data-ru="Ремешок — качественный каучук">Бау — сапалы каучук</li>
+              <li class="i18n" data-kk="Әйнек — минералды" data-ru="Стекло — минеральное">Әйнек — минералды</li>
+              <li class="i18n" data-kk="Механизм — кварцты" data-ru="Механизм — кварцевый">Механизм — кварцты</li>
+              <li class="i18n" data-kk="Дәл жүріс" data-ru="Точный ход">Дәл жүріс</li>
+              <li class="i18n" data-kk="Стильді премиум дизайн" data-ru="Стильный премиальный дизайн">Стильді премиум дизайн</li>
+              <li class="i18n" data-kk="Фирмалық қорап — бөлек сатылады" data-ru="Фирменная коробка — приобретается отдельно">Фирмалық қорап — бөлек сатылады</li>
+          </ul>
+          <p class="product-card__stock i18n" data-kk="Қоймада" data-ru="В наличии">Қоймада</p>
+          <div class="product-actions">
+            <a href="#" class="product-btn product-btn--buy js-wa-msg" target="_blank" rel="noopener"
+               data-kk-msg="Сәлеметсіз бе! Маған HBT Stylish Collection сағаты қызықты. Осы сағатты сатып алғым келеді."
+               data-ru-msg="Здравствуйте! Меня заинтересовали часы HBT Stylish Collection. Хочу купить эти часы.">
+              <span class="i18n" data-kk="Сатып алу" data-ru="Купить">Сатып алу</span>
+            </a>
+            <a href="#" class="product-btn product-btn--details js-wa-msg" target="_blank" rel="noopener"
+               data-kk-msg="Сәлеметсіз бе! Маған HBT Stylish Collection сағаты туралы толық ақпарат беріңізші."
+               data-ru-msg="Здравствуйте! Расскажите, пожалуйста, подробнее о часах HBT Stylish Collection.">
+              <span class="i18n" data-kk="Толығырақ" data-ru="Подробнее">Толығырақ</span>
+            </a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-card__figure">
+            <a href="#" class="product-card__media">
+              <img class="product-img is-active" data-i="0" src="images/hbt-stylish-2/1.jpg" data-kk-alt="HBT Stylish Collection Grey, алдыңғы көрінісі" data-ru-alt="HBT Stylish Collection Grey, вид спереди" alt="HBT Stylish Collection Grey" loading="lazy">
+              <img class="product-img" data-i="1" src="images/hbt-stylish-2/2.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="2" src="images/hbt-stylish-2/3.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="3" src="images/hbt-stylish-2/4.jpg" alt="" loading="lazy">
             </a>
             <button class="product-card__wish" data-kk-aria="Таңдаулыға қосу" data-ru-aria="Добавить в избранное" aria-label="Таңдаулыға қосу">
               <svg viewBox="0 0 24 24"><path d="M12 20.2s-7.8-4.9-10-9.3C.4 7.8 2.2 4.5 5.5 4c2-.3 3.8.6 4.9 2.2C11.5 4.6 13.3 3.7 15.3 4c3.3.5 5.1 3.8 3.5 6.9-2.2 4.4-10 9.3-10 9.3z"/></svg>
@@ -963,19 +1068,359 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
               <button class="dot" data-i="3" aria-label="4"></button>
             </div>
           </div>
-          <p class="product-card__brand">OMEGA</p>
-          <p class="product-card__name"><a href="#">Seamaster Aqua Terra<span class="product-card__variant">, Ref. 220.10</span></a></p>
-          <p class="product-card__price">3 200 000 ₸</p>
+          <p class="product-card__brand">HBT</p>
+          <p class="product-card__name"><a href="#">Stylish Collection<span class="product-card__variant">, Grey</span></a></p>
+          <p class="product-card__price">12 000 ₸</p>
+          <p class="product-card__tagline i18n" data-kk="Күнделікті киюге арналған сәнді сағат: ұқыпты дизайн және әр детальда жайлылық. Күнделікті киюге де, сыйлыққа да таптырмас таңдау." data-ru="Стильные часы на каждый день — лаконичный дизайн и комфорт в каждой детали. Отличный вариант на каждый день или в подарок.">Күнделікті киюге арналған сәнді сағат: ұқыпты дизайн және әр детальда жайлылық. Күнделікті киюге де, сыйлыққа да таптырмас таңдау.</p>
+          <ul class="product-card__specs">
+              <li class="i18n" data-kk="Корпус — тот баспайтын болат" data-ru="Корпус — нержавеющая сталь">Корпус — тот баспайтын болат</li>
+              <li class="i18n" data-kk="Бау — сапалы каучук" data-ru="Ремешок — качественный каучук">Бау — сапалы каучук</li>
+              <li class="i18n" data-kk="Әйнек — минералды" data-ru="Стекло — минеральное">Әйнек — минералды</li>
+              <li class="i18n" data-kk="Механизм — кварцты" data-ru="Механизм — кварцевый">Механизм — кварцты</li>
+              <li class="i18n" data-kk="Дәл жүріс" data-ru="Точный ход">Дәл жүріс</li>
+              <li class="i18n" data-kk="Стильді премиум дизайн" data-ru="Стильный премиальный дизайн">Стильді премиум дизайн</li>
+              <li class="i18n" data-kk="Фирмалық қорап — бөлек сатылады" data-ru="Фирменная коробка — приобретается отдельно">Фирмалық қорап — бөлек сатылады</li>
+          </ul>
           <p class="product-card__stock i18n" data-kk="Қоймада" data-ru="В наличии">Қоймада</p>
           <div class="product-actions">
             <a href="#" class="product-btn product-btn--buy js-wa-msg" target="_blank" rel="noopener"
-               data-kk-msg="Сәлеметсіз бе! Маған OMEGA Seamaster Aqua Terra сағаты қызықты. Осы сағатты сатып алғым келеді."
-               data-ru-msg="Здравствуйте! Меня заинтересовали часы OMEGA Seamaster Aqua Terra. Хочу купить эти часы.">
+               data-kk-msg="Сәлеметсіз бе! Маған HBT Stylish Collection Grey сағаты қызықты. Осы сағатты сатып алғым келеді."
+               data-ru-msg="Здравствуйте! Меня заинтересовали часы HBT Stylish Collection Grey. Хочу купить эти часы.">
               <span class="i18n" data-kk="Сатып алу" data-ru="Купить">Сатып алу</span>
             </a>
             <a href="#" class="product-btn product-btn--details js-wa-msg" target="_blank" rel="noopener"
-               data-kk-msg="Сәлеметсіз бе! Маған OMEGA Seamaster Aqua Terra сағаты туралы толық ақпарат беріңізші."
-               data-ru-msg="Здравствуйте! Расскажите, пожалуйста, подробнее о часах OMEGA Seamaster Aqua Terra.">
+               data-kk-msg="Сәлеметсіз бе! Маған HBT Stylish Collection Grey сағаты туралы толық ақпарат беріңізші."
+               data-ru-msg="Здравствуйте! Расскажите, пожалуйста, подробнее о часах HBT Stylish Collection Grey.">
+              <span class="i18n" data-kk="Толығырақ" data-ru="Подробнее">Толығырақ</span>
+            </a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-card__figure">
+            <a href="#" class="product-card__media">
+              <img class="product-img is-active" data-i="0" src="images/hbt-stylish-3/1.jpg" data-kk-alt="HBT Stylish Collection Black, алдыңғы көрінісі" data-ru-alt="HBT Stylish Collection Black, вид спереди" alt="HBT Stylish Collection Black" loading="lazy">
+              <img class="product-img" data-i="1" src="images/hbt-stylish-3/2.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="2" src="images/hbt-stylish-3/3.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="3" src="images/hbt-stylish-3/4.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="4" src="images/hbt-stylish-3/5.jpg" alt="" loading="lazy">
+            </a>
+            <button class="product-card__wish" data-kk-aria="Таңдаулыға қосу" data-ru-aria="Добавить в избранное" aria-label="Таңдаулыға қосу">
+              <svg viewBox="0 0 24 24"><path d="M12 20.2s-7.8-4.9-10-9.3C.4 7.8 2.2 4.5 5.5 4c2-.3 3.8.6 4.9 2.2C11.5 4.6 13.3 3.7 15.3 4c3.3.5 5.1 3.8 3.5 6.9-2.2 4.4-10 9.3-10 9.3z"/></svg>
+            </button>
+            <div class="product-dots">
+              <button class="dot is-active" data-i="0" aria-label="1"></button>
+              <button class="dot" data-i="1" aria-label="2"></button>
+              <button class="dot" data-i="2" aria-label="3"></button>
+              <button class="dot" data-i="3" aria-label="4"></button>
+              <button class="dot" data-i="4" aria-label="5"></button>
+            </div>
+          </div>
+          <p class="product-card__brand">HBT</p>
+          <p class="product-card__name"><a href="#">Stylish Collection<span class="product-card__variant">, Black</span></a></p>
+          <p class="product-card__price">12 000 ₸</p>
+          <p class="product-card__tagline i18n" data-kk="Күнделікті киюге арналған сәнді сағат: ұқыпты дизайн және әр детальда жайлылық. Күнделікті киюге де, сыйлыққа да таптырмас таңдау." data-ru="Стильные часы на каждый день — лаконичный дизайн и комфорт в каждой детали. Отличный вариант на каждый день или в подарок.">Күнделікті киюге арналған сәнді сағат: ұқыпты дизайн және әр детальда жайлылық. Күнделікті киюге де, сыйлыққа да таптырмас таңдау.</p>
+          <ul class="product-card__specs">
+              <li class="i18n" data-kk="Корпус — тот баспайтын болат" data-ru="Корпус — нержавеющая сталь">Корпус — тот баспайтын болат</li>
+              <li class="i18n" data-kk="Бау — сапалы каучук" data-ru="Ремешок — качественный каучук">Бау — сапалы каучук</li>
+              <li class="i18n" data-kk="Әйнек — минералды" data-ru="Стекло — минеральное">Әйнек — минералды</li>
+              <li class="i18n" data-kk="Механизм — кварцты" data-ru="Механизм — кварцевый">Механизм — кварцты</li>
+              <li class="i18n" data-kk="Дәл жүріс" data-ru="Точный ход">Дәл жүріс</li>
+              <li class="i18n" data-kk="Стильді премиум дизайн" data-ru="Стильный премиальный дизайн">Стильді премиум дизайн</li>
+              <li class="i18n" data-kk="Фирмалық қорап — бөлек сатылады" data-ru="Фирменная коробка — приобретается отдельно">Фирмалық қорап — бөлек сатылады</li>
+          </ul>
+          <p class="product-card__stock i18n" data-kk="Қоймада" data-ru="В наличии">Қоймада</p>
+          <div class="product-actions">
+            <a href="#" class="product-btn product-btn--buy js-wa-msg" target="_blank" rel="noopener"
+               data-kk-msg="Сәлеметсіз бе! Маған HBT Stylish Collection Black сағаты қызықты. Осы сағатты сатып алғым келеді."
+               data-ru-msg="Здравствуйте! Меня заинтересовали часы HBT Stylish Collection Black. Хочу купить эти часы.">
+              <span class="i18n" data-kk="Сатып алу" data-ru="Купить">Сатып алу</span>
+            </a>
+            <a href="#" class="product-btn product-btn--details js-wa-msg" target="_blank" rel="noopener"
+               data-kk-msg="Сәлеметсіз бе! Маған HBT Stylish Collection Black сағаты туралы толық ақпарат беріңізші."
+               data-ru-msg="Здравствуйте! Расскажите, пожалуйста, подробнее о часах HBT Stylish Collection Black.">
+              <span class="i18n" data-kk="Толығырақ" data-ru="Подробнее">Толығырақ</span>
+            </a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-card__figure">
+            <a href="#" class="product-card__media">
+              <img class="product-img is-active" data-i="0" src="images/hbt-stylish-4/1.jpg" data-kk-alt="HBT Stylish Collection Black Bezel, алдыңғы көрінісі" data-ru-alt="HBT Stylish Collection Black Bezel, вид спереди" alt="HBT Stylish Collection Black Bezel" loading="lazy">
+              <img class="product-img" data-i="1" src="images/hbt-stylish-4/2.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="2" src="images/hbt-stylish-4/3.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="3" src="images/hbt-stylish-4/4.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="4" src="images/hbt-stylish-4/5.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="5" src="images/hbt-stylish-4/6.jpg" alt="" loading="lazy">
+            </a>
+            <button class="product-card__wish" data-kk-aria="Таңдаулыға қосу" data-ru-aria="Добавить в избранное" aria-label="Таңдаулыға қосу">
+              <svg viewBox="0 0 24 24"><path d="M12 20.2s-7.8-4.9-10-9.3C.4 7.8 2.2 4.5 5.5 4c2-.3 3.8.6 4.9 2.2C11.5 4.6 13.3 3.7 15.3 4c3.3.5 5.1 3.8 3.5 6.9-2.2 4.4-10 9.3-10 9.3z"/></svg>
+            </button>
+            <div class="product-dots">
+              <button class="dot is-active" data-i="0" aria-label="1"></button>
+              <button class="dot" data-i="1" aria-label="2"></button>
+              <button class="dot" data-i="2" aria-label="3"></button>
+              <button class="dot" data-i="3" aria-label="4"></button>
+              <button class="dot" data-i="4" aria-label="5"></button>
+              <button class="dot" data-i="5" aria-label="6"></button>
+            </div>
+          </div>
+          <p class="product-card__brand">HBT</p>
+          <p class="product-card__name"><a href="#">Stylish Collection<span class="product-card__variant">, Black Bezel</span></a></p>
+          <p class="product-card__price">12 000 ₸</p>
+          <p class="product-card__tagline i18n" data-kk="Күнделікті киюге арналған сәнді сағат: ұқыпты дизайн және әр детальда жайлылық. Күнделікті киюге де, сыйлыққа да таптырмас таңдау." data-ru="Стильные часы на каждый день — лаконичный дизайн и комфорт в каждой детали. Отличный вариант на каждый день или в подарок.">Күнделікті киюге арналған сәнді сағат: ұқыпты дизайн және әр детальда жайлылық. Күнделікті киюге де, сыйлыққа да таптырмас таңдау.</p>
+          <ul class="product-card__specs">
+              <li class="i18n" data-kk="Корпус — тот баспайтын болат" data-ru="Корпус — нержавеющая сталь">Корпус — тот баспайтын болат</li>
+              <li class="i18n" data-kk="Бау — сапалы каучук" data-ru="Ремешок — качественный каучук">Бау — сапалы каучук</li>
+              <li class="i18n" data-kk="Әйнек — минералды" data-ru="Стекло — минеральное">Әйнек — минералды</li>
+              <li class="i18n" data-kk="Механизм — кварцты" data-ru="Механизм — кварцевый">Механизм — кварцты</li>
+              <li class="i18n" data-kk="Дәл жүріс" data-ru="Точный ход">Дәл жүріс</li>
+              <li class="i18n" data-kk="Стильді премиум дизайн" data-ru="Стильный премиальный дизайн">Стильді премиум дизайн</li>
+              <li class="i18n" data-kk="Фирмалық қорап — бөлек сатылады" data-ru="Фирменная коробка — приобретается отдельно">Фирмалық қорап — бөлек сатылады</li>
+          </ul>
+          <p class="product-card__stock i18n" data-kk="Қоймада" data-ru="В наличии">Қоймада</p>
+          <div class="product-actions">
+            <a href="#" class="product-btn product-btn--buy js-wa-msg" target="_blank" rel="noopener"
+               data-kk-msg="Сәлеметсіз бе! Маған HBT Stylish Collection Black Bezel сағаты қызықты. Осы сағатты сатып алғым келеді."
+               data-ru-msg="Здравствуйте! Меня заинтересовали часы HBT Stylish Collection Black Bezel. Хочу купить эти часы.">
+              <span class="i18n" data-kk="Сатып алу" data-ru="Купить">Сатып алу</span>
+            </a>
+            <a href="#" class="product-btn product-btn--details js-wa-msg" target="_blank" rel="noopener"
+               data-kk-msg="Сәлеметсіз бе! Маған HBT Stylish Collection Black Bezel сағаты туралы толық ақпарат беріңізші."
+               data-ru-msg="Здравствуйте! Расскажите, пожалуйста, подробнее о часах HBT Stylish Collection Black Bezel.">
+              <span class="i18n" data-kk="Толығырақ" data-ru="Подробнее">Толығырақ</span>
+            </a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-card__figure">
+            <a href="#" class="product-card__media">
+              <img class="product-img is-active" data-i="0" src="images/hbt-stylish-5/1.jpg" data-kk-alt="HBT Stylish Collection Skeleton, алдыңғы көрінісі" data-ru-alt="HBT Stylish Collection Skeleton, вид спереди" alt="HBT Stylish Collection Skeleton" loading="lazy">
+              <img class="product-img" data-i="1" src="images/hbt-stylish-5/2.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="2" src="images/hbt-stylish-5/3.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="3" src="images/hbt-stylish-5/4.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="4" src="images/hbt-stylish-5/5.jpg" alt="" loading="lazy">
+            </a>
+            <button class="product-card__wish" data-kk-aria="Таңдаулыға қосу" data-ru-aria="Добавить в избранное" aria-label="Таңдаулыға қосу">
+              <svg viewBox="0 0 24 24"><path d="M12 20.2s-7.8-4.9-10-9.3C.4 7.8 2.2 4.5 5.5 4c2-.3 3.8.6 4.9 2.2C11.5 4.6 13.3 3.7 15.3 4c3.3.5 5.1 3.8 3.5 6.9-2.2 4.4-10 9.3-10 9.3z"/></svg>
+            </button>
+            <div class="product-dots">
+              <button class="dot is-active" data-i="0" aria-label="1"></button>
+              <button class="dot" data-i="1" aria-label="2"></button>
+              <button class="dot" data-i="2" aria-label="3"></button>
+              <button class="dot" data-i="3" aria-label="4"></button>
+              <button class="dot" data-i="4" aria-label="5"></button>
+            </div>
+          </div>
+          <p class="product-card__brand">HBT</p>
+          <p class="product-card__name"><a href="#">Stylish Collection<span class="product-card__variant">, Skeleton</span></a></p>
+          <p class="product-card__price">12 000 ₸</p>
+          <p class="product-card__tagline i18n" data-kk="Күнделікті киюге арналған сәнді сағат: ұқыпты дизайн және әр детальда жайлылық. Күнделікті киюге де, сыйлыққа да таптырмас таңдау." data-ru="Стильные часы на каждый день — лаконичный дизайн и комфорт в каждой детали. Отличный вариант на каждый день или в подарок.">Күнделікті киюге арналған сәнді сағат: ұқыпты дизайн және әр детальда жайлылық. Күнделікті киюге де, сыйлыққа да таптырмас таңдау.</p>
+          <ul class="product-card__specs">
+              <li class="i18n" data-kk="Корпус — тот баспайтын болат" data-ru="Корпус — нержавеющая сталь">Корпус — тот баспайтын болат</li>
+              <li class="i18n" data-kk="Бау — сапалы каучук" data-ru="Ремешок — качественный каучук">Бау — сапалы каучук</li>
+              <li class="i18n" data-kk="Әйнек — минералды" data-ru="Стекло — минеральное">Әйнек — минералды</li>
+              <li class="i18n" data-kk="Механизм — кварцты" data-ru="Механизм — кварцевый">Механизм — кварцты</li>
+              <li class="i18n" data-kk="Дәл жүріс" data-ru="Точный ход">Дәл жүріс</li>
+              <li class="i18n" data-kk="Стильді премиум дизайн" data-ru="Стильный премиальный дизайн">Стильді премиум дизайн</li>
+              <li class="i18n" data-kk="Фирмалық қорап — бөлек сатылады" data-ru="Фирменная коробка — приобретается отдельно">Фирмалық қорап — бөлек сатылады</li>
+          </ul>
+          <p class="product-card__stock i18n" data-kk="Қоймада" data-ru="В наличии">Қоймада</p>
+          <div class="product-actions">
+            <a href="#" class="product-btn product-btn--buy js-wa-msg" target="_blank" rel="noopener"
+               data-kk-msg="Сәлеметсіз бе! Маған HBT Stylish Collection Skeleton сағаты қызықты. Осы сағатты сатып алғым келеді."
+               data-ru-msg="Здравствуйте! Меня заинтересовали часы HBT Stylish Collection Skeleton. Хочу купить эти часы.">
+              <span class="i18n" data-kk="Сатып алу" data-ru="Купить">Сатып алу</span>
+            </a>
+            <a href="#" class="product-btn product-btn--details js-wa-msg" target="_blank" rel="noopener"
+               data-kk-msg="Сәлеметсіз бе! Маған HBT Stylish Collection Skeleton сағаты туралы толық ақпарат беріңізші."
+               data-ru-msg="Здравствуйте! Расскажите, пожалуйста, подробнее о часах HBT Stylish Collection Skeleton.">
+              <span class="i18n" data-kk="Толығырақ" data-ru="Подробнее">Толығырақ</span>
+            </a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-card__figure">
+            <a href="#" class="product-card__media">
+              <img class="product-img is-active" data-i="0" src="images/pp-mechanical/1.jpg" data-kk-alt="PP Mechanical Collection, алдыңғы көрінісі" data-ru-alt="PP Mechanical Collection, вид спереди" alt="PP Mechanical Collection" loading="lazy">
+              <img class="product-img" data-i="1" src="images/pp-mechanical/2.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="2" src="images/pp-mechanical/3.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="3" src="images/pp-mechanical/4.jpg" alt="" loading="lazy">
+            </a>
+            <button class="product-card__wish" data-kk-aria="Таңдаулыға қосу" data-ru-aria="Добавить в избранное" aria-label="Таңдаулыға қосу">
+              <svg viewBox="0 0 24 24"><path d="M12 20.2s-7.8-4.9-10-9.3C.4 7.8 2.2 4.5 5.5 4c2-.3 3.8.6 4.9 2.2C11.5 4.6 13.3 3.7 15.3 4c3.3.5 5.1 3.8 3.5 6.9-2.2 4.4-10 9.3-10 9.3z"/></svg>
+            </button>
+            <div class="product-dots">
+              <button class="dot is-active" data-i="0" aria-label="1"></button>
+              <button class="dot" data-i="1" aria-label="2"></button>
+              <button class="dot" data-i="2" aria-label="3"></button>
+              <button class="dot" data-i="3" aria-label="4"></button>
+            </div>
+          </div>
+          <p class="product-card__brand">PP</p>
+          <p class="product-card__name"><a href="#">Mechanical Collection<span class="product-card__variant">, Black Dial</span></a></p>
+          <p class="product-card__price">18 000 ₸</p>
+          <p class="product-card__tagline i18n" data-kk="Премиум дизайнды сәнді механикалық сағат — күнделікті киюге таптырмас таңдау. Күнделікті киюге де, сыйлыққа да ыңғайлы." data-ru="Стильные механические часы с премиальным дизайном — отличный выбор на каждый день. Отличный вариант на каждый день и в подарок.">Премиум дизайнды сәнді механикалық сағат — күнделікті киюге таптырмас таңдау. Күнделікті киюге де, сыйлыққа да ыңғайлы.</p>
+          <ul class="product-card__specs">
+              <li class="i18n" data-kk="Корпус — тот баспайтын болат" data-ru="Корпус — нержавеющая сталь">Корпус — тот баспайтын болат</li>
+              <li class="i18n" data-kk="Білезік — болат" data-ru="Ремешок — сталь">Білезік — болат</li>
+              <li class="i18n" data-kk="Әйнек — минералды" data-ru="Стекло — минеральное">Әйнек — минералды</li>
+              <li class="i18n" data-kk="Механизм — механикалық" data-ru="Механизм — механический">Механизм — механикалық</li>
+              <li class="i18n" data-kk="Дәл жүріс" data-ru="Точный ход">Дәл жүріс</li>
+              <li class="i18n" data-kk="Стильді премиум дизайн" data-ru="Стильный премиальный дизайн">Стильді премиум дизайн</li>
+              <li class="i18n" data-kk="Фирмалық қорап — бөлек сатылады" data-ru="Фирменная коробка — приобретается отдельно">Фирмалық қорап — бөлек сатылады</li>
+          </ul>
+          <p class="product-card__stock i18n" data-kk="Қоймада" data-ru="В наличии">Қоймада</p>
+          <div class="product-actions">
+            <a href="#" class="product-btn product-btn--buy js-wa-msg" target="_blank" rel="noopener"
+               data-kk-msg="Сәлеметсіз бе! Маған PP Mechanical Collection сағаты қызықты. Осы сағатты сатып алғым келеді."
+               data-ru-msg="Здравствуйте! Меня заинтересовали часы PP Mechanical Collection. Хочу купить эти часы.">
+              <span class="i18n" data-kk="Сатып алу" data-ru="Купить">Сатып алу</span>
+            </a>
+            <a href="#" class="product-btn product-btn--details js-wa-msg" target="_blank" rel="noopener"
+               data-kk-msg="Сәлеметсіз бе! Маған PP Mechanical Collection сағаты туралы толық ақпарат беріңізші."
+               data-ru-msg="Здравствуйте! Расскажите, пожалуйста, подробнее о часах PP Mechanical Collection.">
+              <span class="i18n" data-kk="Толығырақ" data-ru="Подробнее">Толығырақ</span>
+            </a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-card__figure">
+            <a href="#" class="product-card__media">
+              <img class="product-img is-active" data-i="0" src="images/pp-mechanical-2/1.jpg" data-kk-alt="PP Mechanical Collection Silver Dial, алдыңғы көрінісі" data-ru-alt="PP Mechanical Collection Silver Dial, вид спереди" alt="PP Mechanical Collection Silver Dial" loading="lazy">
+              <img class="product-img" data-i="1" src="images/pp-mechanical-2/2.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="2" src="images/pp-mechanical-2/3.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="3" src="images/pp-mechanical-2/4.jpg" alt="" loading="lazy">
+            </a>
+            <button class="product-card__wish" data-kk-aria="Таңдаулыға қосу" data-ru-aria="Добавить в избранное" aria-label="Таңдаулыға қосу">
+              <svg viewBox="0 0 24 24"><path d="M12 20.2s-7.8-4.9-10-9.3C.4 7.8 2.2 4.5 5.5 4c2-.3 3.8.6 4.9 2.2C11.5 4.6 13.3 3.7 15.3 4c3.3.5 5.1 3.8 3.5 6.9-2.2 4.4-10 9.3-10 9.3z"/></svg>
+            </button>
+            <div class="product-dots">
+              <button class="dot is-active" data-i="0" aria-label="1"></button>
+              <button class="dot" data-i="1" aria-label="2"></button>
+              <button class="dot" data-i="2" aria-label="3"></button>
+              <button class="dot" data-i="3" aria-label="4"></button>
+            </div>
+          </div>
+          <p class="product-card__brand">PP</p>
+          <p class="product-card__name"><a href="#">Mechanical Collection<span class="product-card__variant">, Silver Dial</span></a></p>
+          <p class="product-card__price">18 000 ₸</p>
+          <p class="product-card__tagline i18n" data-kk="Премиум дизайнды сәнді механикалық сағат — күнделікті киюге таптырмас таңдау. Күнделікті киюге де, сыйлыққа да ыңғайлы." data-ru="Стильные механические часы с премиальным дизайном — отличный выбор на каждый день. Отличный вариант на каждый день и в подарок.">Премиум дизайнды сәнді механикалық сағат — күнделікті киюге таптырмас таңдау. Күнделікті киюге де, сыйлыққа да ыңғайлы.</p>
+          <ul class="product-card__specs">
+              <li class="i18n" data-kk="Корпус — тот баспайтын болат" data-ru="Корпус — нержавеющая сталь">Корпус — тот баспайтын болат</li>
+              <li class="i18n" data-kk="Білезік — болат" data-ru="Ремешок — сталь">Білезік — болат</li>
+              <li class="i18n" data-kk="Әйнек — минералды" data-ru="Стекло — минеральное">Әйнек — минералды</li>
+              <li class="i18n" data-kk="Механизм — механикалық" data-ru="Механизм — механический">Механизм — механикалық</li>
+              <li class="i18n" data-kk="Дәл жүріс" data-ru="Точный ход">Дәл жүріс</li>
+              <li class="i18n" data-kk="Стильді премиум дизайн" data-ru="Стильный премиальный дизайн">Стильді премиум дизайн</li>
+              <li class="i18n" data-kk="Фирмалық қорап — бөлек сатылады" data-ru="Фирменная коробка — приобретается отдельно">Фирмалық қорап — бөлек сатылады</li>
+          </ul>
+          <p class="product-card__stock i18n" data-kk="Қоймада" data-ru="В наличии">Қоймада</p>
+          <div class="product-actions">
+            <a href="#" class="product-btn product-btn--buy js-wa-msg" target="_blank" rel="noopener"
+               data-kk-msg="Сәлеметсіз бе! Маған PP Mechanical Collection Silver Dial сағаты қызықты. Осы сағатты сатып алғым келеді."
+               data-ru-msg="Здравствуйте! Меня заинтересовали часы PP Mechanical Collection Silver Dial. Хочу купить эти часы.">
+              <span class="i18n" data-kk="Сатып алу" data-ru="Купить">Сатып алу</span>
+            </a>
+            <a href="#" class="product-btn product-btn--details js-wa-msg" target="_blank" rel="noopener"
+               data-kk-msg="Сәлеметсіз бе! Маған PP Mechanical Collection Silver Dial сағаты туралы толық ақпарат беріңізші."
+               data-ru-msg="Здравствуйте! Расскажите, пожалуйста, подробнее о часах PP Mechanical Collection Silver Dial.">
+              <span class="i18n" data-kk="Толығырақ" data-ru="Подробнее">Толығырақ</span>
+            </a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-card__figure">
+            <a href="#" class="product-card__media">
+              <img class="product-img is-active" data-i="0" src="images/pp-mechanical-3/1.jpg" data-kk-alt="PP Mechanical Collection Skeleton, алдыңғы көрінісі" data-ru-alt="PP Mechanical Collection Skeleton, вид спереди" alt="PP Mechanical Collection Skeleton" loading="lazy">
+              <img class="product-img" data-i="1" src="images/pp-mechanical-3/2.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="2" src="images/pp-mechanical-3/3.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="3" src="images/pp-mechanical-3/4.jpg" alt="" loading="lazy">
+            </a>
+            <button class="product-card__wish" data-kk-aria="Таңдаулыға қосу" data-ru-aria="Добавить в избранное" aria-label="Таңдаулыға қосу">
+              <svg viewBox="0 0 24 24"><path d="M12 20.2s-7.8-4.9-10-9.3C.4 7.8 2.2 4.5 5.5 4c2-.3 3.8.6 4.9 2.2C11.5 4.6 13.3 3.7 15.3 4c3.3.5 5.1 3.8 3.5 6.9-2.2 4.4-10 9.3-10 9.3z"/></svg>
+            </button>
+            <div class="product-dots">
+              <button class="dot is-active" data-i="0" aria-label="1"></button>
+              <button class="dot" data-i="1" aria-label="2"></button>
+              <button class="dot" data-i="2" aria-label="3"></button>
+              <button class="dot" data-i="3" aria-label="4"></button>
+            </div>
+          </div>
+          <p class="product-card__brand">PP</p>
+          <p class="product-card__name"><a href="#">Mechanical Collection<span class="product-card__variant">, Skeleton</span></a></p>
+          <p class="product-card__price">18 000 ₸</p>
+          <p class="product-card__tagline i18n" data-kk="Премиум дизайнды сәнді механикалық сағат — күнделікті киюге таптырмас таңдау." data-ru="Стильные механические часы с премиальным дизайном — отличный выбор на каждый день.">Премиум дизайнды сәнді механикалық сағат — күнделікті киюге таптырмас таңдау.</p>
+          <ul class="product-card__specs">
+              <li class="i18n" data-kk="Корпус — тот баспайтын болат" data-ru="Корпус — нержавеющая сталь">Корпус — тот баспайтын болат</li>
+              <li class="i18n" data-kk="Білезік — болат" data-ru="Ремешок — сталь">Білезік — болат</li>
+              <li class="i18n" data-kk="Әйнек — минералды" data-ru="Стекло — минеральное">Әйнек — минералды</li>
+              <li class="i18n" data-kk="Механизм — механикалық" data-ru="Механизм — механический">Механизм — механикалық</li>
+              <li class="i18n" data-kk="Дәл жүріс" data-ru="Точный ход">Дәл жүріс</li>
+              <li class="i18n" data-kk="Стильді премиум дизайн" data-ru="Стильный премиальный дизайн">Стильді премиум дизайн</li>
+              <li class="i18n" data-kk="Фирмалық қорап — бөлек сатылады" data-ru="Фирменная коробка — приобретается отдельно">Фирмалық қорап — бөлек сатылады</li>
+          </ul>
+          <p class="product-card__stock i18n" data-kk="Қоймада" data-ru="В наличии">Қоймада</p>
+          <div class="product-actions">
+            <a href="#" class="product-btn product-btn--buy js-wa-msg" target="_blank" rel="noopener"
+               data-kk-msg="Сәлеметсіз бе! Маған PP Mechanical Collection Skeleton сағаты қызықты. Осы сағатты сатып алғым келеді."
+               data-ru-msg="Здравствуйте! Меня заинтересовали часы PP Mechanical Collection Skeleton. Хочу купить эти часы.">
+              <span class="i18n" data-kk="Сатып алу" data-ru="Купить">Сатып алу</span>
+            </a>
+            <a href="#" class="product-btn product-btn--details js-wa-msg" target="_blank" rel="noopener"
+               data-kk-msg="Сәлеметсіз бе! Маған PP Mechanical Collection Skeleton сағаты туралы толық ақпарат беріңізші."
+               data-ru-msg="Здравствуйте! Расскажите, пожалуйста, подробнее о часах PP Mechanical Collection Skeleton.">
+              <span class="i18n" data-kk="Толығырақ" data-ru="Подробнее">Толығырақ</span>
+            </a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-card__figure">
+            <a href="#" class="product-card__media">
+              <img class="product-img is-active" data-i="0" src="images/pp-premium/1.jpg" data-kk-alt="PP Premium Collection, алдыңғы көрінісі" data-ru-alt="PP Premium Collection, вид спереди" alt="PP Premium Collection" loading="lazy">
+              <img class="product-img" data-i="1" src="images/pp-premium/2.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="2" src="images/pp-premium/3.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="3" src="images/pp-premium/4.jpg" alt="" loading="lazy">
+            </a>
+            <button class="product-card__wish" data-kk-aria="Таңдаулыға қосу" data-ru-aria="Добавить в избранное" aria-label="Таңдаулыға қосу">
+              <svg viewBox="0 0 24 24"><path d="M12 20.2s-7.8-4.9-10-9.3C.4 7.8 2.2 4.5 5.5 4c2-.3 3.8.6 4.9 2.2C11.5 4.6 13.3 3.7 15.3 4c3.3.5 5.1 3.8 3.5 6.9-2.2 4.4-10 9.3-10 9.3z"/></svg>
+            </button>
+            <div class="product-dots">
+              <button class="dot is-active" data-i="0" aria-label="1"></button>
+              <button class="dot" data-i="1" aria-label="2"></button>
+              <button class="dot" data-i="2" aria-label="3"></button>
+              <button class="dot" data-i="3" aria-label="4"></button>
+            </div>
+          </div>
+          <p class="product-card__brand">PP</p>
+          <p class="product-card__name"><a href="#">Premium Collection</a></p>
+          <p class="product-card__price">12 000 ₸</p>
+          <p class="product-card__tagline i18n" data-kk="Кеңінен танымал модель: премиум дизайн және сәнді орындау. Күнделікті киюге де, сыйлыққа да таптырмас таңдау." data-ru="Нашумевшая модель с премиальным дизайном и стильным исполнением. Отличный вариант на каждый день и в подарок.">Кеңінен танымал модель: премиум дизайн және сәнді орындау. Күнделікті киюге де, сыйлыққа да таптырмас таңдау.</p>
+          <ul class="product-card__specs">
+              <li class="i18n" data-kk="Корпус — тот баспайтын болат" data-ru="Корпус — нержавеющая сталь">Корпус — тот баспайтын болат</li>
+              <li class="i18n" data-kk="Білезік — болат" data-ru="Ремешок — сталь">Білезік — болат</li>
+              <li class="i18n" data-kk="Әйнек — минералды" data-ru="Стекло — минеральное">Әйнек — минералды</li>
+              <li class="i18n" data-kk="Механизм — кварцты" data-ru="Механизм — кварцевый">Механизм — кварцты</li>
+              <li class="i18n" data-kk="Дәл жүріс" data-ru="Точный ход">Дәл жүріс</li>
+              <li class="i18n" data-kk="Стильді премиум дизайн" data-ru="Стильный премиальный дизайн">Стильді премиум дизайн</li>
+              <li class="i18n" data-kk="Фирмалық қорап — бөлек сатылады" data-ru="Фирменная коробка — приобретается отдельно">Фирмалық қорап — бөлек сатылады</li>
+          </ul>
+          <p class="product-card__stock i18n" data-kk="Қоймада" data-ru="В наличии">Қоймада</p>
+          <div class="product-actions">
+            <a href="#" class="product-btn product-btn--buy js-wa-msg" target="_blank" rel="noopener"
+               data-kk-msg="Сәлеметсіз бе! Маған PP Premium Collection сағаты қызықты. Осы сағатты сатып алғым келеді."
+               data-ru-msg="Здравствуйте! Меня заинтересовали часы PP Premium Collection. Хочу купить эти часы.">
+              <span class="i18n" data-kk="Сатып алу" data-ru="Купить">Сатып алу</span>
+            </a>
+            <a href="#" class="product-btn product-btn--details js-wa-msg" target="_blank" rel="noopener"
+               data-kk-msg="Сәлеметсіз бе! Маған PP Premium Collection сағаты туралы толық ақпарат беріңізші."
+               data-ru-msg="Здравствуйте! Расскажите, пожалуйста, подробнее о часах PP Premium Collection.">
               <span class="i18n" data-kk="Толығырақ" data-ru="Подробнее">Толығырақ</span>
             </a>
           </div>
