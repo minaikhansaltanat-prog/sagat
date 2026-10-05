@@ -323,6 +323,8 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
 @media (min-width:768px){ .product-grid{ gap:28px 24px; } }
 @media (min-width:1024px){ .product-grid{ grid-template-columns:repeat(4,1fr); } }
 .product-card{ position:relative; display:flex; flex-direction:column; }
+.product-card[hidden], .text-link[hidden]{ display:none; }
+#new-arrivals{ scroll-margin-top:var(--header-offset); }
 
 /* Toolbar: result count + grid/feed view switcher (delicate line icons) */
 .grid-toolbar{
@@ -402,7 +404,7 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
 .product-grid.is-feed .product-btn{ height:40px; font-size:11px; letter-spacing:.08em; }
 
 /* Feed view: single column, first photo large — like an editorial feed */
-.product-grid.is-feed{ display:block; max-width:560px; margin:0 auto; }
+.product-grid.is-feed{ display:flex; flex-direction:column; max-width:560px; margin:0 auto; }
 .product-grid.is-feed .product-card{ margin-bottom:48px; }
 .product-grid.is-feed .product-card:last-child{ margin-bottom:0; }
 .product-grid.is-feed .product-card__figure{ aspect-ratio:1/1; margin-bottom:20px; }
@@ -2563,6 +2565,206 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
           </div>
         </article>
 
+        <article class="product-card">
+          <div class="product-card__figure">
+            <a href="#" class="product-card__media">
+              <img class="product-img is-active" data-i="0" src="images/qurmet-chrono-blue/1.jpg" data-kk-alt="QURMET Qazaqstan Chronograph Blue, алдыңғы көрінісі" data-ru-alt="QURMET Qazaqstan Chronograph Blue, вид спереди" alt="QURMET Qazaqstan Chronograph Blue" loading="lazy">
+              <img class="product-img" data-i="1" src="images/qurmet-chrono-blue/2.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="2" src="images/qurmet-chrono-blue/3.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="3" src="images/qurmet-chrono-blue/4.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="4" src="images/qurmet-chrono-blue/5.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="5" src="images/qurmet-chrono-blue/6.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="6" src="images/qurmet-chrono-blue/7.jpg" alt="" loading="lazy">
+            </a>
+            <button class="product-card__wish" data-kk-aria="Таңдаулыға қосу" data-ru-aria="Добавить в избранное" aria-label="Таңдаулыға қосу">
+              <svg viewBox="0 0 24 24"><path d="M12 20.2s-7.8-4.9-10-9.3C.4 7.8 2.2 4.5 5.5 4c2-.3 3.8.6 4.9 2.2C11.5 4.6 13.3 3.7 15.3 4c3.3.5 5.1 3.8 3.5 6.9-2.2 4.4-10 9.3-10 9.3z"/></svg>
+            </button>
+            <div class="product-dots">
+              <button class="dot is-active" data-i="0" aria-label="1"></button>
+              <button class="dot" data-i="1" aria-label="2"></button>
+              <button class="dot" data-i="2" aria-label="3"></button>
+              <button class="dot" data-i="3" aria-label="4"></button>
+              <button class="dot" data-i="4" aria-label="5"></button>
+              <button class="dot" data-i="5" aria-label="6"></button>
+              <button class="dot" data-i="6" aria-label="7"></button>
+            </div>
+          </div>
+          <p class="product-card__brand">QURMET QAZAQSTAN</p>
+          <p class="product-card__name"><a href="#">Chronograph<span class="product-card__variant">, Blue</span></a></p>
+          <p class="product-card__price i18n" data-kk="Баға сұраңыз" data-ru="Цена по запросу">Баға сұраңыз</p>
+          <p class="product-card__tagline i18n" data-kk="Қою көк циферблаты мен болат білезігі бар сәнді ерлер хронографы. Күнделікті киюге арналған спорттық-іскерлік мәнерлі дизайн." data-ru="Стильный мужской хронограф с глубоким синим циферблатом и стальным браслетом. Выразительный спортивно-деловой дизайн на каждый день.">Қою көк циферблаты мен болат білезігі бар сәнді ерлер хронографы. Күнделікті киюге арналған спорттық-іскерлік мәнерлі дизайн.</p>
+          <ul class="product-card__specs">
+              <li class="i18n" data-kk="Механизм — кварцты" data-ru="Механизм — кварцевый">Механизм — кварцты</li>
+              <li class="i18n" data-kk="Корпус — тот баспайтын болат" data-ru="Корпус — нержавеющая сталь">Корпус — тот баспайтын болат</li>
+              <li class="i18n" data-kk="Білезік — болат" data-ru="Браслет — сталь">Білезік — болат</li>
+              <li class="i18n" data-kk="Циферблат — көк" data-ru="Циферблат — синий">Циферблат — көк</li>
+              <li class="i18n" data-kk="Функциялар — хронограф, күн" data-ru="Функции — хронограф, дата">Функциялар — хронограф, күн</li>
+          </ul>
+          <p class="product-card__stock i18n" data-kk="Қоймада" data-ru="В наличии">Қоймада</p>
+          <div class="product-actions">
+            <a href="#" class="product-btn product-btn--buy js-wa-msg" target="_blank" rel="noopener"
+               data-kk-msg="Сәлеметсіз бе! Маған QURMET Qazaqstan Chronograph Blue сағаты қызықты. Осы сағатты сатып алғым келеді."
+               data-ru-msg="Здравствуйте! Меня заинтересовали часы QURMET Qazaqstan Chronograph Blue. Хочу купить эти часы.">
+              <span class="i18n" data-kk="Сатып алу" data-ru="Купить">Сатып алу</span>
+            </a>
+            <a href="#" class="product-btn product-btn--details js-wa-msg" target="_blank" rel="noopener"
+               data-kk-msg="Сәлеметсіз бе! QURMET Qazaqstan Chronograph Blue сағатының бағасы мен толық ақпаратын айтыңызшы."
+               data-ru-msg="Здравствуйте! Подскажите, пожалуйста, цену и подробнее о часах QURMET Qazaqstan Chronograph Blue.">
+              <span class="i18n" data-kk="Толығырақ" data-ru="Подробнее">Толығырақ</span>
+            </a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-card__figure">
+            <a href="#" class="product-card__media">
+              <img class="product-img is-active" data-i="0" src="images/qurmet-chrono-black/1.jpg" data-kk-alt="QURMET Qazaqstan Chronograph Black, алдыңғы көрінісі" data-ru-alt="QURMET Qazaqstan Chronograph Black, вид спереди" alt="QURMET Qazaqstan Chronograph Black" loading="lazy">
+              <img class="product-img" data-i="1" src="images/qurmet-chrono-black/2.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="2" src="images/qurmet-chrono-black/3.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="3" src="images/qurmet-chrono-black/4.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="4" src="images/qurmet-chrono-black/5.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="5" src="images/qurmet-chrono-black/6.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="6" src="images/qurmet-chrono-black/7.jpg" alt="" loading="lazy">
+            </a>
+            <button class="product-card__wish" data-kk-aria="Таңдаулыға қосу" data-ru-aria="Добавить в избранное" aria-label="Таңдаулыға қосу">
+              <svg viewBox="0 0 24 24"><path d="M12 20.2s-7.8-4.9-10-9.3C.4 7.8 2.2 4.5 5.5 4c2-.3 3.8.6 4.9 2.2C11.5 4.6 13.3 3.7 15.3 4c3.3.5 5.1 3.8 3.5 6.9-2.2 4.4-10 9.3-10 9.3z"/></svg>
+            </button>
+            <div class="product-dots">
+              <button class="dot is-active" data-i="0" aria-label="1"></button>
+              <button class="dot" data-i="1" aria-label="2"></button>
+              <button class="dot" data-i="2" aria-label="3"></button>
+              <button class="dot" data-i="3" aria-label="4"></button>
+              <button class="dot" data-i="4" aria-label="5"></button>
+              <button class="dot" data-i="5" aria-label="6"></button>
+              <button class="dot" data-i="6" aria-label="7"></button>
+            </div>
+          </div>
+          <p class="product-card__brand">QURMET QAZAQSTAN</p>
+          <p class="product-card__name"><a href="#">Chronograph<span class="product-card__variant">, Black</span></a></p>
+          <p class="product-card__price i18n" data-kk="Баға сұраңыз" data-ru="Цена по запросу">Баға сұраңыз</p>
+          <p class="product-card__tagline i18n" data-kk="Болат корпусты, құрылымды қара циферблатты салмақты хронограф. Іскерлік бейне мен күнделікті стильге жарасады." data-ru="Массивный хронограф в стальном корпусе с фактурным чёрным циферблатом. Подойдёт для делового образа и повседневного стиля.">Болат корпусты, құрылымды қара циферблатты салмақты хронограф. Іскерлік бейне мен күнделікті стильге жарасады.</p>
+          <ul class="product-card__specs">
+              <li class="i18n" data-kk="Механизм — кварцты" data-ru="Механизм — кварцевый">Механизм — кварцты</li>
+              <li class="i18n" data-kk="Корпус — тот баспайтын болат" data-ru="Корпус — нержавеющая сталь">Корпус — тот баспайтын болат</li>
+              <li class="i18n" data-kk="Білезік — болат" data-ru="Браслет — сталь">Білезік — болат</li>
+              <li class="i18n" data-kk="Циферблат — қара" data-ru="Циферблат — чёрный">Циферблат — қара</li>
+              <li class="i18n" data-kk="Функциялар — хронограф, күн" data-ru="Функции — хронограф, дата">Функциялар — хронограф, күн</li>
+          </ul>
+          <p class="product-card__stock i18n" data-kk="Қоймада" data-ru="В наличии">Қоймада</p>
+          <div class="product-actions">
+            <a href="#" class="product-btn product-btn--buy js-wa-msg" target="_blank" rel="noopener"
+               data-kk-msg="Сәлеметсіз бе! Маған QURMET Qazaqstan Chronograph Black сағаты қызықты. Осы сағатты сатып алғым келеді."
+               data-ru-msg="Здравствуйте! Меня заинтересовали часы QURMET Qazaqstan Chronograph Black. Хочу купить эти часы.">
+              <span class="i18n" data-kk="Сатып алу" data-ru="Купить">Сатып алу</span>
+            </a>
+            <a href="#" class="product-btn product-btn--details js-wa-msg" target="_blank" rel="noopener"
+               data-kk-msg="Сәлеметсіз бе! QURMET Qazaqstan Chronograph Black сағатының бағасы мен толық ақпаратын айтыңызшы."
+               data-ru-msg="Здравствуйте! Подскажите, пожалуйста, цену и подробнее о часах QURMET Qazaqstan Chronograph Black.">
+              <span class="i18n" data-kk="Толығырақ" data-ru="Подробнее">Толығырақ</span>
+            </a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-card__figure">
+            <a href="#" class="product-card__media">
+              <img class="product-img is-active" data-i="0" src="images/qurmet-classic-blue/1.jpg" data-kk-alt="QURMET Qazaqstan Classic Blue, алдыңғы көрінісі" data-ru-alt="QURMET Qazaqstan Classic Blue, вид спереди" alt="QURMET Qazaqstan Classic Blue" loading="lazy">
+              <img class="product-img" data-i="1" src="images/qurmet-classic-blue/2.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="2" src="images/qurmet-classic-blue/3.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="3" src="images/qurmet-classic-blue/4.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="4" src="images/qurmet-classic-blue/5.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="5" src="images/qurmet-classic-blue/6.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="6" src="images/qurmet-classic-blue/7.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="7" src="images/qurmet-classic-blue/8.jpg" alt="" loading="lazy">
+            </a>
+            <button class="product-card__wish" data-kk-aria="Таңдаулыға қосу" data-ru-aria="Добавить в избранное" aria-label="Таңдаулыға қосу">
+              <svg viewBox="0 0 24 24"><path d="M12 20.2s-7.8-4.9-10-9.3C.4 7.8 2.2 4.5 5.5 4c2-.3 3.8.6 4.9 2.2C11.5 4.6 13.3 3.7 15.3 4c3.3.5 5.1 3.8 3.5 6.9-2.2 4.4-10 9.3-10 9.3z"/></svg>
+            </button>
+            <div class="product-dots">
+              <button class="dot is-active" data-i="0" aria-label="1"></button>
+              <button class="dot" data-i="1" aria-label="2"></button>
+              <button class="dot" data-i="2" aria-label="3"></button>
+              <button class="dot" data-i="3" aria-label="4"></button>
+              <button class="dot" data-i="4" aria-label="5"></button>
+              <button class="dot" data-i="5" aria-label="6"></button>
+              <button class="dot" data-i="6" aria-label="7"></button>
+              <button class="dot" data-i="7" aria-label="8"></button>
+            </div>
+          </div>
+          <p class="product-card__brand">QURMET QAZAQSTAN</p>
+          <p class="product-card__name"><a href="#">Classic<span class="product-card__variant">, Blue</span></a></p>
+          <p class="product-card__price i18n" data-kk="Баға сұраңыз" data-ru="Цена по запросу">Баға сұраңыз</p>
+          <p class="product-card__tagline i18n" data-kk="Қою көк циферблатты қысқа әрі классикалық модель. Минималистік дизайн костюммен де, casual бейнемен де оңай үйлеседі." data-ru="Лаконичная классическая модель с насыщенным синим циферблатом. Минималистичный дизайн легко сочетается с костюмом и casual-образами.">Қою көк циферблатты қысқа әрі классикалық модель. Минималистік дизайн костюммен де, casual бейнемен де оңай үйлеседі.</p>
+          <ul class="product-card__specs">
+              <li class="i18n" data-kk="Механизм — кварцты" data-ru="Механизм — кварцевый">Механизм — кварцты</li>
+              <li class="i18n" data-kk="Корпус — тот баспайтын болат" data-ru="Корпус — нержавеющая сталь">Корпус — тот баспайтын болат</li>
+              <li class="i18n" data-kk="Білезік — болат" data-ru="Браслет — сталь">Білезік — болат</li>
+              <li class="i18n" data-kk="Циферблат — көк" data-ru="Циферблат — синий">Циферблат — көк</li>
+              <li class="i18n" data-kk="Функция — күн" data-ru="Функция — дата">Функция — күн</li>
+          </ul>
+          <p class="product-card__stock i18n" data-kk="Қоймада" data-ru="В наличии">Қоймада</p>
+          <div class="product-actions">
+            <a href="#" class="product-btn product-btn--buy js-wa-msg" target="_blank" rel="noopener"
+               data-kk-msg="Сәлеметсіз бе! Маған QURMET Qazaqstan Classic Blue сағаты қызықты. Осы сағатты сатып алғым келеді."
+               data-ru-msg="Здравствуйте! Меня заинтересовали часы QURMET Qazaqstan Classic Blue. Хочу купить эти часы.">
+              <span class="i18n" data-kk="Сатып алу" data-ru="Купить">Сатып алу</span>
+            </a>
+            <a href="#" class="product-btn product-btn--details js-wa-msg" target="_blank" rel="noopener"
+               data-kk-msg="Сәлеметсіз бе! QURMET Qazaqstan Classic Blue сағатының бағасы мен толық ақпаратын айтыңызшы."
+               data-ru-msg="Здравствуйте! Подскажите, пожалуйста, цену и подробнее о часах QURMET Qazaqstan Classic Blue.">
+              <span class="i18n" data-kk="Толығырақ" data-ru="Подробнее">Толығырақ</span>
+            </a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-card__figure">
+            <a href="#" class="product-card__media">
+              <img class="product-img is-active" data-i="0" src="images/qurmet-classic-black/1.jpg" data-kk-alt="QURMET Qazaqstan Classic Black, алдыңғы көрінісі" data-ru-alt="QURMET Qazaqstan Classic Black, вид спереди" alt="QURMET Qazaqstan Classic Black" loading="lazy">
+              <img class="product-img" data-i="1" src="images/qurmet-classic-black/2.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="2" src="images/qurmet-classic-black/3.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="3" src="images/qurmet-classic-black/4.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="4" src="images/qurmet-classic-black/5.jpg" alt="" loading="lazy">
+              <img class="product-img" data-i="5" src="images/qurmet-classic-black/6.jpg" alt="" loading="lazy">
+            </a>
+            <button class="product-card__wish" data-kk-aria="Таңдаулыға қосу" data-ru-aria="Добавить в избранное" aria-label="Таңдаулыға қосу">
+              <svg viewBox="0 0 24 24"><path d="M12 20.2s-7.8-4.9-10-9.3C.4 7.8 2.2 4.5 5.5 4c2-.3 3.8.6 4.9 2.2C11.5 4.6 13.3 3.7 15.3 4c3.3.5 5.1 3.8 3.5 6.9-2.2 4.4-10 9.3-10 9.3z"/></svg>
+            </button>
+            <div class="product-dots">
+              <button class="dot is-active" data-i="0" aria-label="1"></button>
+              <button class="dot" data-i="1" aria-label="2"></button>
+              <button class="dot" data-i="2" aria-label="3"></button>
+              <button class="dot" data-i="3" aria-label="4"></button>
+              <button class="dot" data-i="4" aria-label="5"></button>
+              <button class="dot" data-i="5" aria-label="6"></button>
+            </div>
+          </div>
+          <p class="product-card__brand">QURMET QAZAQSTAN</p>
+          <p class="product-card__name"><a href="#">Classic<span class="product-card__variant">, Black</span></a></p>
+          <p class="product-card__price i18n" data-kk="Баға сұраңыз" data-ru="Цена по запросу">Баға сұраңыз</p>
+          <p class="product-card__tagline i18n" data-kk="Қара циферблатты және мәнерлі болат безельді әмбебап сағат. Мәртебе мен практикалықты ерекшелейтін байсалды дизайн." data-ru="Универсальные часы с чёрным циферблатом и выразительным стальным безелем. Сдержанный дизайн с акцентом на статус и практичность.">Қара циферблатты және мәнерлі болат безельді әмбебап сағат. Мәртебе мен практикалықты ерекшелейтін байсалды дизайн.</p>
+          <ul class="product-card__specs">
+              <li class="i18n" data-kk="Механизм — кварцты" data-ru="Механизм — кварцевый">Механизм — кварцты</li>
+              <li class="i18n" data-kk="Корпус — тот баспайтын болат" data-ru="Корпус — нержавеющая сталь">Корпус — тот баспайтын болат</li>
+              <li class="i18n" data-kk="Білезік — болат" data-ru="Браслет — сталь">Білезік — болат</li>
+              <li class="i18n" data-kk="Циферблат — қара" data-ru="Циферблат — чёрный">Циферблат — қара</li>
+              <li class="i18n" data-kk="Функция — күн" data-ru="Функция — дата">Функция — күн</li>
+          </ul>
+          <p class="product-card__stock i18n" data-kk="Қоймада" data-ru="В наличии">Қоймада</p>
+          <div class="product-actions">
+            <a href="#" class="product-btn product-btn--buy js-wa-msg" target="_blank" rel="noopener"
+               data-kk-msg="Сәлеметсіз бе! Маған QURMET Qazaqstan Classic Black сағаты қызықты. Осы сағатты сатып алғым келеді."
+               data-ru-msg="Здравствуйте! Меня заинтересовали часы QURMET Qazaqstan Classic Black. Хочу купить эти часы.">
+              <span class="i18n" data-kk="Сатып алу" data-ru="Купить">Сатып алу</span>
+            </a>
+            <a href="#" class="product-btn product-btn--details js-wa-msg" target="_blank" rel="noopener"
+               data-kk-msg="Сәлеметсіз бе! QURMET Qazaqstan Classic Black сағатының бағасы мен толық ақпаратын айтыңызшы."
+               data-ru-msg="Здравствуйте! Подскажите, пожалуйста, цену и подробнее о часах QURMET Qazaqstan Classic Black.">
+              <span class="i18n" data-kk="Толығырақ" data-ru="Подробнее">Толығырақ</span>
+            </a>
+          </div>
+        </article>
+
       </div>
     </div>
   </section>
@@ -3132,6 +3334,56 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
     if (!desktopMQ.matches) return;
     e.preventDefault();
     openModal(card, link || card);
+  });
+
+  /* ---------- Catalog filter: "Казахстанские бренды" shows QURMET + Patek Philippe (PP) ---------- */
+  var KZ_RANK = { "QURMET QAZAQSTAN":0, "PATEK PHILIPPE":1, "PP":1 };
+  var catalogSection = document.getElementById("new-arrivals");
+  var catalogTitle = catalogSection.querySelector(".section-heading");
+  var catalogReset = catalogSection.querySelector(".section-head .text-link");
+  var catalogNum = catalogSection.querySelector(".grid-toolbar__num");
+  var catalogUnit = catalogSection.querySelector(".grid-toolbar__count .i18n");
+  var catalogCards = Array.prototype.slice.call(newArrivalsGrid.querySelectorAll(".product-card"));
+  var TITLE_ALL = { kk:catalogTitle.dataset.kk, ru:catalogTitle.dataset.ru };
+  var TITLE_KZ = { kk:"Қазақша брендтер", ru:"Казахстанские бренды" };
+
+  function ruModels(n){
+    var a = n % 10, b = n % 100;
+    return (a === 1 && b !== 11) ? "модель" : (a >= 2 && a <= 4 && (b < 12 || b > 14)) ? "модели" : "моделей";
+  }
+
+  function setCatalogFilter(on){
+    var shown = 0;
+    catalogCards.forEach(function(card){
+      var rank = KZ_RANK[(card.querySelector(".product-card__brand").textContent || "").trim().toUpperCase()];
+      var match = !on || rank !== undefined;
+      card.hidden = !match;
+      card.style.order = (on && match) ? rank : "";
+      if (match) shown++;
+    });
+    var t = on ? TITLE_KZ : TITLE_ALL;
+    catalogTitle.dataset.kk = t.kk; catalogTitle.dataset.ru = t.ru;
+    catalogTitle.textContent = t[currentLang()];
+    catalogNum.textContent = shown;
+    catalogUnit.dataset.ru = ruModels(shown);
+    catalogUnit.textContent = catalogUnit.dataset[currentLang()];
+    catalogReset.hidden = !on;
+    newArrivalsGrid.classList.toggle("is-filtered", !!on);
+  }
+
+  function showCatalog(on){
+    setCatalogFilter(on);
+    setTimeout(function(){ catalogSection.scrollIntoView({ behavior:"smooth", block:"start" }); }, 60);
+  }
+
+  setCatalogFilter(false);
+  catalogReset.addEventListener("click", function(e){ e.preventDefault(); setCatalogFilter(false); });
+  document.addEventListener("click", function(e){
+    var a = e.target.closest("a");
+    if (!a) return;
+    var href = a.getAttribute("href");
+    if (href === "#kazakh-brands" || a.matches(".editorial .btn")){ e.preventDefault(); showCatalog(true); }
+    else if (href === "#new-arrivals"){ e.preventDefault(); showCatalog(false); }
   });
 
   /* ---------- Newsletter (static demo) ---------- */
