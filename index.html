@@ -2765,7 +2765,7 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
           </div>
         </article>
 
-        <article class="product-card" data-cat="intl">
+        <article class="product-card">
           <div class="product-card__figure">
             <a href="#" class="product-card__media">
               <img class="product-img is-active" data-i="0" src="images/omega-speedmaster/1.jpg" data-kk-alt="OMEGA Speedmaster Professional, алдыңғы көрінісі" data-ru-alt="OMEGA Speedmaster Professional, вид спереди" alt="OMEGA Speedmaster Professional" loading="lazy">
@@ -3010,7 +3010,7 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
           </div>
         </article>
 
-        <article class="product-card" data-cat="intl">
+        <article class="product-card">
           <div class="product-card__figure">
             <a href="#" class="product-card__media">
               <img class="product-img is-active" data-i="0" src="images/omega-seamaster/1.jpg" data-kk-alt="OMEGA Seamaster Professional, алдыңғы көрінісі" data-ru-alt="OMEGA Seamaster Professional, вид спереди" alt="OMEGA Seamaster Professional" loading="lazy">
@@ -3058,7 +3058,7 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
           </div>
         </article>
 
-        <article class="product-card" data-cat="intl">
+        <article class="product-card">
           <div class="product-card__figure">
             <a href="#" class="product-card__media">
               <img class="product-img is-active" data-i="0" src="images/omega-planet-ocean-gmt/1.jpg" data-kk-alt="OMEGA Seamaster Planet Ocean GMT, алдыңғы көрінісі" data-ru-alt="OMEGA Seamaster Planet Ocean GMT, вид спереди" alt="OMEGA Seamaster Planet Ocean GMT" loading="lazy">
@@ -5046,20 +5046,29 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
   });
 
   /* ---------- Catalog filters from the menu / category cards ----------
-     kz   — QURMET + Patek Philippe (PP), by brand
+     kz    — QURMET + Patek Philippe (PP), plus any card whose brand/name has "қазақ/qazaq/kazakh/казах"
+             or that is tagged data-cat="kz" (e.g. a watch with a Kazakh ornament)
+     intl  — every watch that is NOT in kz (accessories excluded)
      women — cards tagged data-cat="women" (ladies' watches: tag every new ladies' watch)
-     men  — every card NOT tagged "women" or "accessory"
-     acc  — cards tagged data-cat="accessory" (belts, straps, boxes: tag every new accessory)
-     intl — cards tagged data-cat="intl" (foreign brands)
+     men   — every card NOT tagged "women" or "accessory"
+     acc   — cards tagged data-cat="accessory" (belts, straps, boxes: tag every new accessory)
      Anything else (new collections, "all") shows the full catalog. */
   var KZ_RANK = { "QURMET QAZAQSTAN":0, "PATEK PHILIPPE":1, "PP":1 };
+  var KZ_WORDS = /қазақ|qazaq|kazakh|казах/i;
+  function hasCat(card, name){ return (card.dataset.cat || "").split(/\s+/).indexOf(name) !== -1; }
+  function kzRank(card, brand){
+    if (KZ_RANK[brand] !== undefined) return KZ_RANK[brand];
+    var nameEl = card.querySelector(".product-card__name");
+    var text = brand + " " + (nameEl ? nameEl.textContent + " " + nameEl.innerHTML : "");
+    return (hasCat(card, "kz") || KZ_WORDS.test(text)) ? 2 : undefined;
+  }
   var FILTERS = {
-    kz:   { kk:"Қазақша брендтер", ru:"Казахстанские бренды", rank:function(card, brand){ return KZ_RANK[brand]; } },
-    women:{ kk:"Әйелдерге", ru:"Женщинам", rank:function(card){ return /\bwomen\b/.test(card.dataset.cat || "") ? 0 : undefined; } },
-    men:  { kk:"Ер адамдарға", ru:"Мужчинам", rank:function(card){ return /\b(women|accessory)\b/.test(card.dataset.cat || "") ? undefined : 0; } },
+    kz:   { kk:"Қазақша брендтер", ru:"Казахстанские бренды", rank:function(card, brand){ return kzRank(card, brand); } },
+    women:{ kk:"Әйелдерге", ru:"Женщинам", rank:function(card){ return hasCat(card, "women") ? 0 : undefined; } },
+    men:  { kk:"Ер адамдарға", ru:"Мужчинам", rank:function(card){ return (hasCat(card, "women") || hasCat(card, "accessory")) ? undefined : 0; } },
     acc:  { kk:"Аксессуарлар", ru:"Аксессуары", kkUnit:"тауар", ruUnit:function(n){ var a = n % 10, b = n % 100; return (a === 1 && b !== 11) ? "товар" : (a >= 2 && a <= 4 && (b < 12 || b > 14)) ? "товара" : "товаров"; },
-            rank:function(card){ return /\baccessory\b/.test(card.dataset.cat || "") ? 0 : undefined; } },
-    intl: { kk:"Шетелдік брендтер", ru:"Зарубежные бренды", rank:function(card){ return /\bintl\b/.test(card.dataset.cat || "") ? 0 : undefined; } }
+            rank:function(card){ return hasCat(card, "accessory") ? 0 : undefined; } },
+    intl: { kk:"Шетелдік брендтер", ru:"Зарубежные бренды", rank:function(card, brand){ return (hasCat(card, "accessory") || kzRank(card, brand) !== undefined) ? undefined : 0; } }
   };
   var catalogSection = document.getElementById("new-arrivals");
   var catalogTitle = catalogSection.querySelector(".section-heading");
