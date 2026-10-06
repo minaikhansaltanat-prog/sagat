@@ -191,6 +191,7 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
 
 .primary-nav{ border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
 .primary-nav__inner{ display:flex; justify-content:center; gap:36px; height:52px; align-items:center; flex-wrap:wrap; }
+@media (min-width:1024px) and (max-width:1279px){ .primary-nav__inner{ gap:clamp(14px,2vw,26px); flex-wrap:nowrap; } .nav-link{ font-size:11px; letter-spacing:.08em; white-space:nowrap; } }
 .nav-link{
   font-size:12px; letter-spacing:.1em; text-transform:uppercase; font-weight:500;
   position:relative; padding:4px 0;
@@ -262,24 +263,76 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
 /* =========================================================
    HERO
    ========================================================= */
-.hero{ position:relative; width:100%; overflow:hidden; background:var(--ink); }
-.hero__media{ position:relative; width:100%; aspect-ratio:4/5; }
-@media (min-width:768px){ .hero__media{ aspect-ratio:16/9; } }
-@media (min-width:1024px){ .hero__media{ aspect-ratio:16/7; } }
-.hero__media img{ width:100%; height:100%; object-fit:cover; object-position:center 30%; }
-.hero__scrim{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.15) 0%, rgba(0,0,0,.05) 40%, rgba(0,0,0,.55) 100%); }
-.hero__content{
-  position:absolute; left:0; right:0; bottom:0; padding:32px 20px 40px; color:#fff; text-align:left;
+.hero{ position:relative; width:100%; overflow:hidden; background:#05080f; --hero-interval:3.6s; }
+.hero__media{ position:relative; width:100%; aspect-ratio:3/5; min-height:480px; max-height:calc(100vh - 96px); max-height:calc(100svh - 96px); overflow:hidden; }
+@media (min-width:768px){ .hero__media{ aspect-ratio:16/10; min-height:420px; max-height:calc(100vh - 112px); max-height:calc(100svh - 112px); } }
+@media (min-width:1024px){ .hero__media{ aspect-ratio:2/1; min-height:520px; } }
+@media (max-width:767px) and (orientation:landscape){ .hero__media{ aspect-ratio:2/1; min-height:260px; max-height:none; } }
+.hero__slide{ position:absolute; inset:0; margin:0; opacity:0; z-index:0; transition:opacity 1.3s cubic-bezier(.4,0,.2,1); will-change:opacity; }
+.hero__slide.is-prev{ opacity:1; z-index:1; }
+.hero__slide.is-active{ opacity:1; z-index:2; }
+.hero__slide img{ width:100%; height:100%; object-fit:cover; object-position:50% 0%; transform-origin:50% 25%; }
+@media (min-width:768px){ .hero__slide img{ object-position:78% 42%; transform-origin:72% 45%; } }
+@media (max-width:767px) and (orientation:landscape){ .hero__slide img{ object-position:78% 42%; transform-origin:72% 45%; } }
+.hero__slide.is-active img, .hero__slide.is-prev img{ animation:heroDrift 7.5s cubic-bezier(.25,.1,.25,1) forwards; }
+@keyframes heroDrift{ from{ transform:scale(1); } to{ transform:scale(1.07); } }
+.hero__scrim{
+  position:absolute; inset:0; z-index:3; pointer-events:none;
+  background:linear-gradient(180deg, rgba(3,6,12,.30) 0%, rgba(3,6,12,0) 24%, rgba(3,6,12,0) 46%, rgba(3,6,12,.60) 70%, rgba(3,6,12,.92) 100%);
 }
-@media (min-width:768px){ .hero__content{ padding:0 32px 64px; } }
-@media (min-width:1440px){ .hero__content{ padding:0 48px 72px; } }
-.hero__eyebrow{ font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:#fff; opacity:.85; margin-bottom:14px; }
+@media (min-width:768px){
+  .hero__scrim{ background:linear-gradient(90deg, rgba(3,6,12,.80) 0%, rgba(3,6,12,.52) 32%, rgba(3,6,12,0) 60%), linear-gradient(0deg, rgba(3,6,12,.55) 0%, rgba(3,6,12,0) 38%); }
+}
+.hero__content{
+  position:absolute; left:0; right:0; bottom:0; z-index:4; padding:0 20px 56px; color:#fff; text-align:left;
+}
+@media (min-width:768px){ .hero__content{ padding:0 32px 72px; max-width:640px; } }
+@media (min-width:1024px){ .hero__content{ padding:0 48px 88px; max-width:700px; } }
+@media (min-width:1440px){ .hero__content{ left:max(0px, calc((100% - 1440px) / 2)); right:auto; padding:0 48px 96px; } }
+.hero__eyebrow{
+  display:flex; align-items:center; gap:12px; font-size:11px; letter-spacing:.24em; text-transform:uppercase;
+  color:#E3C16F; font-weight:500; margin-bottom:16px;
+}
+.hero__eyebrow::before{ content:""; width:32px; height:1px; background:linear-gradient(90deg, #E3C16F, rgba(227,193,111,.2)); }
 .hero__title{
   font-family:var(--font-serif); font-weight:500; text-transform:uppercase;
-  font-size:clamp(30px,8vw,72px); line-height:1.02; letter-spacing:.01em; margin-bottom:14px;
+  font-size:clamp(36px,10.4vw,84px); line-height:1.0; letter-spacing:-.01em; margin-bottom:16px;
+  text-shadow:0 2px 28px rgba(0,0,0,.5);
 }
-.hero__desc{ font-size:15px; max-width:480px; color:#f2f2f2; margin-bottom:26px; line-height:1.6; }
+.hero__desc{ font-size:15px; max-width:460px; color:rgba(255,255,255,.84); margin-bottom:28px; line-height:1.7; text-shadow:0 1px 14px rgba(0,0,0,.55); }
+@media (min-width:1024px){ .hero__desc{ font-size:16px; } }
 .hero__cta{ display:flex; gap:14px; flex-wrap:wrap; }
+.hero__bars{ position:absolute; left:20px; bottom:26px; z-index:5; display:flex; gap:8px; }
+@media (min-width:768px){ .hero__bars{ left:32px; bottom:40px; } }
+@media (min-width:1024px){ .hero__bars{ left:48px; bottom:48px; } }
+@media (min-width:1440px){ .hero__bars{ left:max(48px, calc((100% - 1440px) / 2 + 48px)); } }
+.hero__bar{ position:relative; width:36px; height:2px; background:rgba(255,255,255,.28); overflow:hidden; }
+.hero__bar::after{ content:""; position:absolute; inset:0; background:#E3C16F; transform:scaleX(0); transform-origin:left; }
+.hero__bar.is-active::after{ animation:heroBar var(--hero-interval) linear forwards; }
+@keyframes heroBar{ to{ transform:scaleX(1); } }
+/* text must never sit on the watch: size it per breakpoint */
+@media (max-width:767px) and (max-height:700px) and (orientation:portrait){
+  .hero__title{ font-size:clamp(32px,9.4vw,44px); margin-bottom:12px; }
+  .hero__desc{ font-size:14px; line-height:1.55; margin-bottom:20px; }
+  .hero__content{ padding-bottom:48px; }
+}
+@media (max-width:767px) and (max-height:600px) and (orientation:portrait){ .hero__desc{ display:none; } }
+@media (min-width:768px) and (max-width:1023px){
+  .hero__content{ max-width:52%; }
+  .hero__title{ font-size:clamp(34px,6.2vw,60px); }
+}
+@media (min-width:1024px){ .hero__title{ font-size:clamp(52px,5.8vw,84px); } }
+@media (max-width:767px) and (orientation:landscape){
+  .hero__content{ max-width:56%; padding-bottom:46px; }
+  .hero__title{ font-size:clamp(26px,5.6vw,40px); margin-bottom:10px; }
+  .hero__desc{ display:none; }
+  .hero__eyebrow{ margin-bottom:10px; }
+}
+@media (prefers-reduced-motion:reduce){
+  .hero__slide{ transition:none; }
+  .hero__slide.is-active img, .hero__slide.is-prev img{ animation:none; }
+  .hero__bar.is-active::after{ animation:none; transform:scaleX(1); }
+}
 .reveal{ opacity:0; transform:translateY(16px); animation:reveal .8s var(--ease) forwards; }
 .reveal-1{ animation-delay:.05s; } .reveal-2{ animation-delay:.18s; } .reveal-3{ animation-delay:.3s; } .reveal-4{ animation-delay:.42s; }
 @keyframes reveal{ to{ opacity:1; transform:translateY(0); } }
@@ -763,11 +816,25 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
 
   <!-- HERO -->
   <section class="hero" id="top">
-    <div class="hero__media">
-      <img src="https://images.unsplash.com/photo-1583198432859-635beb4e8600?auto=format&fit=crop&w=2400&h=1200&q=80"
-           data-kk-alt="ROYAL WATCH жаңа коллекциясы, білектегі премиум сағат"
-           data-ru-alt="Новая коллекция ROYAL WATCH, премиальные часы на руке"
-           alt="ROYAL WATCH жаңа коллекциясы" loading="eager" fetchpriority="high">
+    <div class="hero__media" id="heroMedia">
+      <picture class="hero__slide is-active">
+        <source media="(max-width:767px) and (orientation:portrait)" type="image/webp" srcset="images/hero/m1.webp">
+        <source media="(max-width:767px) and (orientation:portrait)" srcset="images/hero/m1.jpg">
+        <source type="image/webp" srcset="images/hero/d1.webp">
+        <img src="images/hero/d1.jpg" width="2400" height="1200"
+             data-kk-alt="ROYAL WATCH: скелетонды циферблатты Patek Philippe Nautilus стиліндегі премиум сағат"
+             data-ru-alt="ROYAL WATCH: премиальные часы в стиле Patek Philippe Nautilus со скелетонизированным циферблатом"
+             alt="ROYAL WATCH: скелетонды циферблатты Patek Philippe Nautilus стиліндегі премиум сағат" loading="eager" fetchpriority="high" decoding="async">
+      </picture>
+      <picture class="hero__slide">
+        <source media="(max-width:767px) and (orientation:portrait)" type="image/webp" srcset="images/hero/m2.webp">
+        <source media="(max-width:767px) and (orientation:portrait)" srcset="images/hero/m2.jpg">
+        <source type="image/webp" srcset="images/hero/d2.webp">
+        <img src="images/hero/d2.jpg" width="2400" height="1200"
+             data-kk-alt="ROYAL WATCH: күн терезесі бар Patek Philippe Nautilus стиліндегі премиум сағат"
+             data-ru-alt="ROYAL WATCH: премиальные часы в стиле Patek Philippe Nautilus с окошком даты"
+             alt="ROYAL WATCH: күн терезесі бар Patek Philippe Nautilus стиліндегі премиум сағат" loading="eager" decoding="async">
+      </picture>
       <div class="hero__scrim"></div>
     </div>
     <div class="hero__content">
@@ -778,6 +845,7 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
         <a href="#new-arrivals" class="btn btn-outline-invert i18n" data-kk="Топтаманы қарау" data-ru="Смотреть коллекцию">Топтаманы қарау</a>
       </div>
     </div>
+    <div class="hero__bars" aria-hidden="true"><span class="hero__bar is-active"></span><span class="hero__bar"></span></div>
   </section>
 
   <!-- CATEGORY BLOCKS -->
@@ -5125,6 +5193,36 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
     var key = id === "cat-women" ? "women" : id === "cat-men" ? "men" : id === "cat-accessories" ? "acc" : id === "cat-international" ? "intl" : (id === "kazakh-brands" || id === "cat-kazakh" || a.matches(".editorial .btn")) ? "kz" : null;
     if (key || href === "#new-arrivals"){ e.preventDefault(); showCatalog(key); }
   });
+
+  /* ---------- Hero: two-slide crossfade background ---------- */
+  (function(){
+    var hero = document.querySelector(".hero");
+    var slides = hero ? Array.prototype.slice.call(hero.querySelectorAll(".hero__slide")) : [];
+    var bars = hero ? Array.prototype.slice.call(hero.querySelectorAll(".hero__bar")) : [];
+    if (slides.length < 2) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var INTERVAL = 3600, FADE = 1400, cur = 0, timer = null;
+    function show(n){
+      var prev = slides[cur], next = slides[n];
+      slides.forEach(function(s){ if (s !== prev && s !== next) s.classList.remove("is-prev", "is-active"); });
+      prev.classList.remove("is-active"); prev.classList.add("is-prev");
+      next.classList.remove("is-prev");
+      // restart the slow drift on the incoming slide
+      var img = next.querySelector("img");
+      if (img){ img.style.animation = "none"; void img.offsetWidth; img.style.animation = ""; }
+      next.classList.add("is-active");
+      bars.forEach(function(b, i){
+        b.classList.remove("is-active"); void b.offsetWidth;
+        if (i === n) b.classList.add("is-active");
+      });
+      cur = n;
+      setTimeout(function(){ if (slides[cur] !== prev) prev.classList.remove("is-prev"); }, FADE + 100);
+    }
+    function start(){ if (!timer) timer = setInterval(function(){ show((cur + 1) % slides.length); }, INTERVAL); }
+    function stop(){ clearInterval(timer); timer = null; }
+    document.addEventListener("visibilitychange", function(){ if (document.hidden) stop(); else start(); });
+    start();
+  })();
 
   /* ---------- Newsletter (static demo) ---------- */
   document.getElementById("newsletterForm").addEventListener("submit", function(e){
