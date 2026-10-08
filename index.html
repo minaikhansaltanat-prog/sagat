@@ -363,11 +363,6 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
 }
 .cat-card__arrow svg{ width:13px; height:13px; stroke:currentColor; fill:none; stroke-width:1.4; transition:transform .25s var(--ease); }
 .cat-card:hover .cat-card__arrow svg{ transform:translateX(3px); }
-.cat-card__media--all{
-  display:flex; align-items:center; justify-content:center; text-align:center;
-  background:var(--ink); color:#fff; font-family:var(--font-serif); font-size:clamp(18px,2.4vw,24px);
-  padding:24px;
-}
 
 /* =========================================================
    PRODUCT GRID
@@ -906,12 +901,10 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
         </div>
       </a>
       <a class="cat-card cat-card--all" href="#new-arrivals">
-        <div class="cat-card__media cat-card__media--all">
-          <span class="i18n" data-kk="Барлық санаттар" data-ru="Все категории">Барлық санаттар</span>
-        </div>
+        <div class="cat-card__media"><picture><source type="image/webp" srcset="images/categories/catal.webp"><img src="images/categories/catal.jpg" width="1200" height="1500" data-kk-alt="Толық каталог: Santa Barbara Polo &amp; Racquet Club хронографы" data-ru-alt="Полный каталог: хронограф Santa Barbara Polo &amp; Racquet Club" alt="Толық каталог: Santa Barbara Polo &amp; Racquet Club хронографы" loading="lazy" decoding="async"></picture></div>
         <div class="cat-card__body">
           <span class="cat-card__title i18n" data-kk="Толық каталог" data-ru="Полный каталог">Толық каталог</span>
-          <span class="cat-card__arrow"><svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg></span>
+          <span class="cat-card__arrow"><span class="i18n" data-kk="Қарау" data-ru="Смотреть">Қарау</span><svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg></span>
         </div>
       </a>
     </div>
