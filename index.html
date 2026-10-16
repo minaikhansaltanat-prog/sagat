@@ -10,7 +10,7 @@
 <meta property="og:description" content="Түпнұсқалық. Талғам. Сенімді сервис.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://images.unsplash.com/photo-1583198432859-635beb4e8600?auto=format&fit=crop&w=1200&h=630&q=80">
-<script>window.__rwCatalog=fetch("data/products.json",{cache:"no-cache"}).then(function(r){if(!r.ok)throw new Error(r.status);return r.json()});window.__rwCatalog.catch(function(){});</script>
+<script>window.__rwCatalog=fetch("data/products.json",{cache:"no-cache"}).then(function(r){if(!r.ok)throw new Error(r.status);return r.json()});window.__rwCatalog.catch(function(){});window.__rwSite=fetch("data/site.json",{cache:"no-cache"}).then(function(r){if(!r.ok)throw new Error(r.status);return r.json()});window.__rwSite.catch(function(){});</script>
 <link rel="icon" type="image/png" href="favicon-512.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1166,6 +1166,7 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
         <a href="#" class="i18n" data-kk="Жария оферта" data-ru="Публичная оферта">Жария оферта</a>
         <a href="#" class="i18n" data-kk="Құпиялылық саясаты" data-ru="Политика конфиденциальности">Құпиялылық саясаты</a>
         <a href="#" class="i18n" data-kk="Cookie саясаты" data-ru="Политика cookie">Cookie саясаты</a>
+        <a href="admin/" class="i18n footer-admin-link" rel="nofollow" data-kk="Кіру" data-ru="Вход" hidden>Кіру</a>
       </div>
     </div>
   </div>
@@ -1695,6 +1696,7 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
 
   function mountCatalog(data){
     var list = ((data && data.products) || []).filter(function(p){ return p && p.active !== false; });
+    window.__rwList = list;
     newArrivalsGrid.innerHTML = list.map(cardHtml).join("\n");
     newArrivalsGrid.removeAttribute("aria-busy");
     catalogCards = Array.prototype.slice.call(newArrivalsGrid.querySelectorAll(".product-card"));
@@ -1715,6 +1717,94 @@ hr, .hr{ border:none; border-top:1px solid var(--line); }
     .then(mountCatalog)
     .catch(catalogFailed);
   window.addEventListener("hashchange", openFromHash);
+
+  /* ---------- Site settings: contacts + hero text from data/site.json (edited in /admin) ---------- */
+  var RW_API = "";
+  function setI18n(el, t){
+    if (!el || !t || (!t.kk && !t.ru)) return;
+    el.dataset.kk = t.kk || t.ru; el.dataset.ru = t.ru || t.kk;
+  }
+  function applySite(s){
+    if (!s) return;
+    RW_API = String(s.api || "").replace(/\/+$/, "");
+    var adminLink = document.querySelector(".footer-admin-link");
+    if (adminLink) adminLink.hidden = !RW_API;
+    var c = s.contacts || {};
+    var wa = String(c.whatsapp || "").replace(/\D/g, "");
+    if (wa) WA_PHONE = wa;
+    function setHref(sel, url){
+      if (!url) return;
+      document.querySelectorAll(sel).forEach(function(a){ a.setAttribute("href", url); });
+    }
+    setHref('.footer-social a[aria-label="Instagram"], #instagram a[href*="instagram.com"]', c.instagram);
+    setHref('.footer-social a[aria-label="Telegram"]', c.telegram);
+    setHref('.footer-social a[aria-label="TikTok"]', c.tiktok);
+    if (wa) setHref('.footer-social a[aria-label="WhatsApp"]', "https://wa.me/" + wa);
+    var handle = /instagram\.com\/([^/?#]+)/.exec(c.instagram || "");
+    var igLink = document.querySelector("#instagram .text-link");
+    if (handle && igLink){ igLink.dataset.kk = "@" + handle[1] + " көру"; igLink.dataset.ru = "Смотреть @" + handle[1]; }
+    var addr = document.querySelector(".footer-address");
+    if (addr){
+      setI18n(addr.querySelector("p"), c.address);
+      if (c.map) addr.querySelector(".footer-address__link").setAttribute("href", c.map);
+      var box = addr.querySelector("div");
+      box.querySelectorAll(".footer-address__extra").forEach(function(n){ n.remove(); });
+      var link = box.querySelector(".footer-address__link");
+      function extra(cls, t, html){
+        var p = document.createElement("p");
+        p.className = "footer-address__extra " + cls;
+        if (html){ p.innerHTML = html; } else { p.className += " i18n"; p.dataset.kk = t.kk || t.ru; p.dataset.ru = t.ru || t.kk; }
+        box.insertBefore(p, link);
+      }
+      if (c.hours && (c.hours.kk || c.hours.ru)) extra("", c.hours);
+      var tel = String(c.phone || "").trim();
+      if (tel) extra("", null, '<a href="tel:' + esc(tel.replace(/[^\d+]/g, "")) + '" style="color:inherit">' + esc(tel) + "</a>");
+    }
+    var h = s.hero || {};
+    var hero = document.querySelector(".hero");
+    if (hero){
+      setI18n(hero.querySelector(".hero__eyebrow"), h.eyebrow);
+      setI18n(hero.querySelector(".hero__desc"), h.desc);
+      if (h.title) hero.querySelector(".hero__title").textContent = h.title;
+      var cta = hero.querySelector(".hero__cta a");
+      if (cta && h.cta){ setI18n(cta, h.cta.text); if (h.cta.link) cta.setAttribute("href", h.cta.link); }
+      var pics = hero.querySelectorAll(".hero__slide");
+      (h.slides || []).forEach(function(sl, i){
+        var pic = pics[i]; if (!pic || !sl) return;
+        if (sl.mobile){
+          pic.querySelectorAll("source[media]").forEach(function(n){ n.remove(); });
+          var src = document.createElement("source");
+          src.media = "(max-width:767px) and (orientation:portrait)"; src.srcset = sl.mobile;
+          pic.insertBefore(src, pic.firstChild);
+        }
+        if (sl.desktop){
+          pic.querySelectorAll("source:not([media])").forEach(function(n){ n.remove(); });
+          pic.querySelector("img").src = sl.desktop;
+        }
+      });
+    }
+    applyLang(currentLang());
+  }
+  (window.__rwSite || fetch("data/site.json", { cache:"no-cache" }).then(function(r){ return r.json(); }))
+    .then(applySite)
+    .catch(function(){});
+
+  /* ---------- Leads: log "buy" / "details" clicks so the admin sees them (and Telegram pings) ---------- */
+  document.addEventListener("click", function(e){
+    var btn = e.target.closest(".product-btn[data-pid]");
+    if (!btn || !RW_API) return;
+    var pid = btn.getAttribute("data-pid");
+    var p = (window.__rwList || []).filter(function(x){ return x.id === pid; })[0];
+    if (!p) return;
+    var body = JSON.stringify({
+      type: btn.classList.contains("product-btn--buy") ? "buy" : "info",
+      pid: pid,
+      title: (p.brand ? p.brand + " " : "") + ((p.name && p.name.kk) || "") + (p.variant ? ", " + p.variant : ""),
+      price: (!p.priceOnRequest && p.price) ? p.price : null,
+      lang: currentLang()
+    });
+    try { fetch(RW_API + "/api/leads", { method:"POST", headers:{ "Content-Type":"text/plain" }, body:body, keepalive:true }).catch(function(){}); } catch(err){}
+  });
 
   catalogReset.addEventListener("click", function(e){ e.preventDefault(); setCatalogFilter(null); });
   document.addEventListener("click", function(e){

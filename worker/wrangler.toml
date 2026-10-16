@@ -1,0 +1,17 @@
+name = "royalwatch-cms"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
+
+[vars]
+GITHUB_REPO = "minaikhansaltanat-prog/sagat"
+GITHUB_BRANCH = "main"
+ALLOWED_ORIGINS = "https://royalwatch.kz,https://www.royalwatch.kz,https://minaikhansaltanat-prog.github.io"
+PBKDF2_ITERATIONS = "20000"
+
+# Filled in by `npm run setup` (wrangler d1 create royalwatch)
+[[d1_databases]]
+binding = "DB"
+database_name = "royalwatch"
+database_id = "REPLACE_WITH_D1_ID"
+
+# Secrets (never in this file): JWT_SECRET, GITHUB_TOKEN, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
