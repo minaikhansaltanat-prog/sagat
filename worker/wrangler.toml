@@ -12,6 +12,6 @@ PBKDF2_ITERATIONS = "20000"
 [[d1_databases]]
 binding = "DB"
 database_name = "royalwatch"
-database_id = "REPLACE_WITH_D1_ID"
+database_id = "d51e56ad-8488-471a-9997-275d2d113b45"
 
 # Secrets (never in this file): JWT_SECRET, GITHUB_TOKEN, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
